@@ -13,6 +13,7 @@ app.engine('html', require('ejs').renderFile);
 app.use(cors()); 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json())
+app.use('/static', express.static('static'));
 app.get('/',function(req,res){
     res.render('index.html')
  });
