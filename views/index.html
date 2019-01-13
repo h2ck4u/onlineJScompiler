@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <div>
+            <textarea id="content" name="content"></textarea><br />
+            <button id="compile" type="compile">Click</button>
+        </div>
+    
+        <div>
+            <textarea id="result"></textarea>
+        </div>
+    </body>
+    <script>
+        document.getElementById('compile').addEventListener('click', function() {
+            const code = document.getElementById('content').value;
+            const url = 'http://localhost:3000/compile';
+            sendAjax(url, code, setResult)
+        });
+        function sendAjax(url, data, callback){
+            // 입력값을 변수에 담고 문자열 형태로 변환
+            var data = {'code' : data};
+            data = JSON.stringify(data);
+
+            // content-type을 설정하고 데이터 송신
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', url);
+            xhr.setRequestHeader('Content-type', "application/json");
+            xhr.send(data);
+            
+            // 데이터 수신이 완료되면 표시
+            xhr.addEventListener('load', function(){
+                const result = document.getElementById('result');
+                callback(xhr.responseText);
+            });
+        }
+
+        function setResult(value) {
+            const result = document.getElementById('result');
+                result.value = value;
+        }
+    </script>
+</html>

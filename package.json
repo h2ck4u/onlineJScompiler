@@ -1,0 +1,24 @@
+{
+  "name": "onlinejscompiler",
+  "version": "1.0.0",
+  "description": "onlineJScompiler",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/h2ck4u/onlineJScompiler.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/h2ck4u/onlineJScompiler/issues"
+  },
+  "homepage": "https://github.com/h2ck4u/onlineJScompiler#readme",
+  "devDependencies": {
+    "cors": "^2.8.5",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4"
+  }
+}
