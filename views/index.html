@@ -24,6 +24,7 @@
             tabSize: 4,
             theme: 'dracula.css'
         });
+        myCodeMirror.setValue('function solution() { \r\treturn; \r}');
         document.getElementById('compile').addEventListener('click', function() {
             const code = myCodeMirror.getValue();
             const url = 'http://localhost:3000/compile';

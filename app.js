@@ -31,7 +31,7 @@ app.listen(PORT, () => {
 });
 
 function writeFile(data) {
-    var str = 'console.log(' + data + ');';
+    var str = `console.log((${data})());`;
     fs.writeFileSync('test.js', str, 'utf8');
 }
 
