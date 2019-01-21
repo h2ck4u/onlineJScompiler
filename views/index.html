@@ -1,18 +1,28 @@
 <html>
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="/static/js/codemirror.js"></script>
-        <link rel="stylesheet" type="text/css" href="/static/css/codemirror.css">
+        <script type="text/javascript" src="/dist/app.js"></script>
+        <link rel="stylesheet" type="text/css" href="/static/css/quiz.css">
+        <script type="text/javascript" src="/module/codemirror.js"></script>
+        <link rel="stylesheet" type="text/css" href="/module/codemirror.css">
     </head>
     <body>
         <div>
+            <div class="quiz" >
+                <select id="selectBox">
+                    <option value="volvo">Volvo</option>
+                </select>
+                <span id="quiz"></span>
+            </div>
             <textarea id="content" name="content"></textarea><br />
-            <button id="compile" type="compile">Click</button>
+            <div class="bottom">
+                <button id="compile" type="compile">Click</button>
+            </div>
         </div>
-    
-        <div>
+        <div class="result">
             <textarea id="result"></textarea>
         </div>
+
     </body>
     <script>
         const content = document.getElementById('content');
@@ -25,6 +35,7 @@
             theme: 'dracula.css'
         });
         myCodeMirror.setValue('function solution() { \r\treturn; \r}');
+        
         document.getElementById('compile').addEventListener('click', function() {
             const code = myCodeMirror.getValue();
             const url = 'http://localhost:3000/compile';
@@ -50,7 +61,11 @@
 
         function setResult(value) {
             const result = document.getElementById('result');
-                result.value = value;
+            result.value = value;
+            const expected = document.getElementById('quiz').getAttribute('result');
+            if (parseInt(value) == expected) {
+                alert('정답입니다.');
+            }
         }
     </script>
 </html>
