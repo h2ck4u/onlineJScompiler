@@ -13,7 +13,9 @@ app.engine('html', require('ejs').renderFile);
 app.use(cors()); 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json())
-app.use('/static', express.static('static'));
+app.use('/static', express.static(__dirname + '/src'));
+app.use('/dist', express.static(__dirname + '/dist'));
+app.use('/module', express.static(__dirname + '/module'));
 app.get('/',function(req,res){
     res.render('index.html')
  });
