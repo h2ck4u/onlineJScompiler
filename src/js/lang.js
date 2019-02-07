@@ -20,7 +20,7 @@ const lang = {
             tabSize: 4,
             theme: 'monokai.css'
         },
-        defaultFunction: 'def solution(n):\r\treturn'
+        defaultFunction: 'def solution():\r\treturn\r\rif __name__ == "__main__":\r\tprint(solution())'
     }
 }
 
