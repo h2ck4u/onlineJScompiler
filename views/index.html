@@ -6,7 +6,7 @@
         <script type="text/javascript" src="/module/codemirror.js"></script>
         <link rel="stylesheet" type="text/css" href="/module/codemirror.css">
     </head>
-    <body>
+    <body onload="initCompiler();">
         <div>
             <div class="quiz">
                 <select id="selectBox"></select>
@@ -28,6 +28,11 @@
 
     </body>
     <script>
+        function initCompiler() {
+            var compiler = new Compiler();
+            compiler.init();
+        } 
+
         const content = document.getElementById('content');
         var myCodeMirror = CodeMirror.fromTextArea(content, {
             mode: 'javascript',
