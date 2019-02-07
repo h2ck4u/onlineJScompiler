@@ -1,39 +1,48 @@
 import Quiz from './Quiz';
 import template from "./templates";
 
-window.onload = init;
-
-function init() {
-    appendOption();
-    const elQuiz = document.getElementById('quiz');
-    const quiz = new Quiz('Quiz1');
-    elQuiz.innerHTML = quiz.content;
-    elQuiz.setAttribute('result', quiz.result);
+const LANGUAGE = {
+    JAVASCRIPT: 'javascript',
+    PYTHON: 'python'
 }
 
-function appendOption() {
-    const elSelectBox = document.getElementById('selectBox');
-    let str = '';
-    Object.keys(template).forEach(quiz => {
-        str += `<option value="${quiz}">${quiz}</option>`;
-    });
-    elSelectBox.innerHTML = str;
+class Compiler {
+    constructor() {
+        this.language = LANGUAGE.JAVASCRIPT;
+        this.quiz = null;
+    }
 
-    elSelectBox.addEventListener('change', changeQuiz);
+    init() {
+        this.appendOption();
+        const elQuiz = document.getElementById('quiz');
+        const quiz = new Quiz('Quiz1');
+        elQuiz.innerHTML = quiz.content;
+        elQuiz.setAttribute('result', quiz.result);
+    }
+
+    appendOption() {
+        const elSelectBox = document.getElementById('selectBox');
+        let str = '';
+        Object.keys(template).forEach(quiz => {
+            str += `<option value="${quiz}">${quiz}</option>`;
+        });
+        elSelectBox.innerHTML = str;
+
+        elSelectBox.addEventListener('change', this.changeQuiz);
+    }
+
+    changeQuiz() {
+        const elSelectBox = document.getElementById('selectBox');
+        const elQuiz = document.getElementById('quiz');
+        let value = elSelectBox.value;
+        let quiz = new Quiz(value);
+        elQuiz.innerHTML = quiz.content;
+        elQuiz.setAttribute('result', quiz.result);
+    }
+
+    changeLanguage() {
+
+    }
 }
-
-function changeQuiz() {
-    const elSelectBox = document.getElementById('selectBox');
-    const elQuiz = document.getElementById('quiz');
-    let value = elSelectBox.value;
-    let quiz = new Quiz(value);
-    elQuiz.innerHTML = quiz.content;
-    elQuiz.setAttribute('result', quiz.result);
-}
-
-function changeLanguage() {
-
-}
-
-
-export default init;
+window.Compiler = Compiler;
+export default Compiler;
