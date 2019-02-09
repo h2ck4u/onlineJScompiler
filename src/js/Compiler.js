@@ -1,5 +1,6 @@
 import Quiz from './Quiz';
 import template from "./templates";
+import lang from "./lang";
 
 const LANGUAGE = {
     JAVASCRIPT: 'javascript',
@@ -13,11 +14,23 @@ class Compiler {
     }
 
     init() {
+        this.setCodeMirror('javascript');
         this.appendOption();
         const elQuiz = document.getElementById('quiz');
         const quiz = new Quiz('Quiz1');
         elQuiz.innerHTML = quiz.content;
         elQuiz.setAttribute('result', quiz.result);
+    }
+
+    setCodeMirror(language) {
+        let info = lang[language] || lang['javascript'];
+        if (!myCodeMirror) {
+            const content = document.getElementById('content');
+            myCodeMirror = CodeMirror.fromTextArea(content, info.options);
+        }
+    
+        myCodeMirror.setOption('mode', info.options.mode);
+        myCodeMirror.setValue(info.defaultFunction);
     }
 
     appendOption() {
@@ -41,7 +54,8 @@ class Compiler {
     }
 
     changeLanguage() {
-
+        const elSelectBox = document.getElementById('language');
+        this.setCodeMirror(elSelectBox.value);
     }
 }
 window.Compiler = Compiler;
