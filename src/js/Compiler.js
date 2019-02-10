@@ -10,6 +10,7 @@ class Compiler {
     constructor() {
         this.language = LANGUAGE.JAVASCRIPT;
         this.quiz = null;
+        this.testCase = {};
     }
 
     init() {
@@ -42,6 +43,14 @@ class Compiler {
 
     changeLanguage() {
 
+    }
+
+    addTestCase(input, expected) {
+        const idx = Object.keys(this.testCase).length;
+        this.testCase[idx] = {
+            input: input,
+            expected: expected
+        };
     }
 }
 window.Compiler = Compiler;
