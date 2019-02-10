@@ -13,8 +13,9 @@
                 <span id="quiz"></span>
             </div>
             <div class="quiz">
-                <select id="selectBox">
-                    <option value="javascript">javascript</option>
+                <select id="language">
+                    <option value="JAVASCRIPT">javascript</option>
+                    <option value="PYTHON">python</option>
                 </select>
                 <textarea id="content" name="content"></textarea><br />
             </div>
@@ -31,27 +32,11 @@
         function initCompiler() {
             var compiler = new Compiler();
             compiler.init();
-        } 
+        }
 
-        const content = document.getElementById('content');
-        var myCodeMirror = CodeMirror.fromTextArea(content, {
-            mode: 'javascript',
-            smartIndent: true,
-            indentWithTabs: true,
-            lineNumbers: true,
-            tabSize: 4,
-            theme: 'monokai.css'
-        });
-        myCodeMirror.setValue('function solution() { \r\treturn; \r}');
-        
-        document.getElementById('compile').addEventListener('click', function() {
-            const code = myCodeMirror.getValue();
-            const url = 'http://localhost:3000/compile';
-            sendAjax(url, code, setResult)
-        });
         function sendAjax(url, data, callback){
             // 입력값을 변수에 담고 문자열 형태로 변환
-            var data = {'code' : data};
+            var data = {'code' : data, 'lang': document.getElementById('language').selectedOptions[0].value.toLowerCase()};
             data = JSON.stringify(data);
 
             // content-type을 설정하고 데이터 송신

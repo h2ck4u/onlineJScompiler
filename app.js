@@ -22,8 +22,21 @@ app.get('/',function(req,res){
  
 app.post('/compile', function(req, res) {
     var body = req.body;
-    writeFile(body.code);
-    execute().then(function(result) {
+    var executeInfo = {
+        javascript: {
+            fileName: 'test.js',
+            command: 'node test.js',
+            code: `console.log((${body.code})());`
+        },
+        python: {
+            fileName: 'test.py',
+            command: 'python test.py',
+            code: `${body.code}`
+        }
+    };
+
+    writeFile(executeInfo[body.lang].fileName, executeInfo[body.lang].code);
+    execute(executeInfo[body.lang].command).then(function(result) {
         res.send(result);
     });
 });
@@ -32,15 +45,14 @@ app.listen(PORT, () => {
     console.log('Server is running on PORT:',PORT);
 });
 
-function writeFile(data) {
-    var str = `console.log((${data})());`;
-    fs.writeFileSync('test.js', str, 'utf8');
+function writeFile(fileName, data) {
+    fs.writeFileSync(fileName, data, 'utf8');
 }
 
-function execute() {
+function execute(command) {
     return new Promise(function(resolve, reject) {
         var exec = require('child_process').exec;
-        exec('node test.js', function(error, stdout, stderr) {
+        exec(command, function(error, stdout, stderr) {
             if (error !== null) {
                 console.log('exec error: ' + error);
             } else {
