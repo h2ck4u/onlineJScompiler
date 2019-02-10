@@ -16,6 +16,7 @@ class Compiler {
     constructor() {
         this.language = LANGUAGE.JAVASCRIPT;
         this.quiz = null;
+        this.testCase = {};
     }
 
     init() {
@@ -75,6 +76,22 @@ class Compiler {
     changeLanguage() {
         this.language = LANGUAGE[document.getElementById('language').value];
         this.setCodeMirror();
+    }
+
+    addTestCase(input, expected) {
+        const idx = Object.keys(this.testCase).length;
+        this.testCase[idx] = {
+            input: input,
+            expected: expected
+        };
+    }
+
+    addTestCase(input, expected) {
+        const idx = Object.keys(this.testCase).length;
+        this.testCase[idx] = {
+            input: input,
+            expected: expected
+        };
     }
 }
 window.Compiler = Compiler;
