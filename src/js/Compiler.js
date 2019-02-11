@@ -78,7 +78,7 @@ class Compiler {
         this.setCodeMirror();
     }
 
-    addTestCase(input, expected) {
+    setTestCase(input, expected) {
         const idx = Object.keys(this.testCase).length;
         this.testCase[idx] = {
             input: input,
