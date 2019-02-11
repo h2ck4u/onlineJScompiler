@@ -25,7 +25,7 @@ app.post('/compile', function(req, res) {
     var executeInfo = {
         javascript: {
             fileName: 'test.js',
-            command: 'node test.js',
+            command: `node test.js ${body.testCase}`,
             code: `console.log((${body.code})());`
         },
         python: {
@@ -42,7 +42,7 @@ app.post('/compile', function(req, res) {
 });
 
 app.listen(PORT, () => {
-    console.log('Server is running on PORT:',PORT);
+    console.log('Server is running on PORT:', PORT);
 });
 
 function writeFile(fileName, data) {

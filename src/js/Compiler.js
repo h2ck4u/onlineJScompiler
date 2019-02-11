@@ -1,5 +1,5 @@
 import Quiz from './Quiz';
-import template from "./templates";
+import template from './templates';
 
 const LANGUAGE = {
     JAVASCRIPT: {
@@ -86,12 +86,8 @@ class Compiler {
         };
     }
 
-    addTestCase(input, expected) {
-        const idx = Object.keys(this.testCase).length;
-        this.testCase[idx] = {
-            input: input,
-            expected: expected
-        };
+    getTestCase() {
+        return this.testCase;
     }
 }
 window.Compiler = Compiler;

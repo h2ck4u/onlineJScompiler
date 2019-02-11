@@ -56,7 +56,7 @@
         }
         
         document.getElementById('compile').addEventListener('click', function() {
-            const code = myCodeMirror.getValue();
+            const code = compiler.myCodeMirror.getValue();
             const url = 'http://localhost:3000/compile';
             sendAjax(url, code, setResult)
         });
@@ -68,7 +68,11 @@
 
         function sendAjax(url, data, callback){
             // 입력값을 변수에 담고 문자열 형태로 변환
-            var data = {'code' : data, 'lang': document.getElementById('language').selectedOptions[0].value.toLowerCase()};
+            var data = {
+                'code' : data, 
+                'lang': document.getElementById('language').selectedOptions[0].value.toLowerCase(),
+                'testCase': parseInt(compiler.getTestCase()[0].input)
+            };
             data = JSON.stringify(data);
 
             // content-type을 설정하고 데이터 송신
