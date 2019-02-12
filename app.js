@@ -26,7 +26,9 @@ app.post('/compile', function(req, res) {
         javascript: {
             fileName: 'test.js',
             command: `node test.js ${body.testCase}`,
-            code: `console.log((${body.code})());`
+            code: `var input = parseInt(process.argv[2]);
+            ${body.code}
+            console.log(solution(input));`
         },
         python: {
             fileName: 'test.py',
@@ -37,6 +39,14 @@ app.post('/compile', function(req, res) {
 
     writeFile(executeInfo[body.lang].fileName, executeInfo[body.lang].code);
     execute(executeInfo[body.lang].command).then(function(result) {
+        res.send(result);
+    });
+});
+
+app.post('/test', function(req, res) {
+    var body = req.body;
+    var data = body.code;
+    execute(`node test.js ${data}`).then(function(result) {
         res.send(result);
     });
 });

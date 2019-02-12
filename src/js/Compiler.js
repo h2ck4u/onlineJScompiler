@@ -90,5 +90,13 @@ class Compiler {
         return this.testCase;
     }
 }
+function setResult(value) {
+    const result = document.getElementById('result');
+    result.value = value;
+    const expected = document.getElementById('quiz').getAttribute('result');
+    if (parseInt(value) == expected) {
+        alert('정답입니다.');
+    }
+}
 window.Compiler = Compiler;
 export default Compiler;
