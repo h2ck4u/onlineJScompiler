@@ -1,5 +1,5 @@
 import Quiz from './Quiz';
-import template from "./templates";
+import template from './templates';
 
 const LANGUAGE = {
     JAVASCRIPT: {
@@ -78,7 +78,7 @@ class Compiler {
         this.setCodeMirror();
     }
 
-    addTestCase(input, expected) {
+    setTestCase(input, expected) {
         const idx = Object.keys(this.testCase).length;
         this.testCase[idx] = {
             input: input,
@@ -86,12 +86,16 @@ class Compiler {
         };
     }
 
-    addTestCase(input, expected) {
-        const idx = Object.keys(this.testCase).length;
-        this.testCase[idx] = {
-            input: input,
-            expected: expected
-        };
+    getTestCase() {
+        return this.testCase;
+    }
+}
+function setResult(value) {
+    const result = document.getElementById('result');
+    result.value = value;
+    const expected = document.getElementById('quiz').getAttribute('result');
+    if (parseInt(value) == expected) {
+        alert('정답입니다.');
     }
 }
 window.Compiler = Compiler;

@@ -25,8 +25,10 @@ app.post('/compile', function(req, res) {
     var executeInfo = {
         javascript: {
             fileName: 'test.js',
-            command: 'node test.js',
-            code: `console.log((${body.code})());`
+            command: `node test.js ${body.testCase}`,
+            code: `var input = parseInt(process.argv[2]);
+            ${body.code}
+            console.log(solution(input));`
         },
         python: {
             fileName: 'test.py',
@@ -41,8 +43,16 @@ app.post('/compile', function(req, res) {
     });
 });
 
+app.post('/test', function(req, res) {
+    var body = req.body;
+    var data = body.code;
+    execute(`node test.js ${data}`).then(function(result) {
+        res.send(result);
+    });
+});
+
 app.listen(PORT, () => {
-    console.log('Server is running on PORT:',PORT);
+    console.log('Server is running on PORT:', PORT);
 });
 
 function writeFile(fileName, data) {

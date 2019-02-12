@@ -22,6 +22,7 @@
         </div>
         <div class="bottom">
             <button id="compile" type="compile">컴파일 하기.</button>
+            <button id="test" type="compile">테스트 하기.</button>
             <div id="testCaseArea" style="display: block;">
                 <table style="border: solid 1px black;">
                     <caption>테스트 케이스</caption>
@@ -35,14 +36,16 @@
                     </tr>
                     <tr>
                         <td>
-                            <input></input>
+                            <input id="input"></input>
                         </td>
                         <td>
-                            <input></input>
+                            <input id="expected"></input>
                         </td>
                     </tr>
                 </table>
                 <button id="addTestCase">테스트케이스 추가하기.</button>
+                <table id="testCaseList" style="border: solid 1px black; width:274px;"></table>
+                </table>
             </div>
         </div>
         <div class="result">
@@ -54,21 +57,44 @@
             window.compiler = new Compiler();
             compiler.init();
         }
-        
-        document.getElementById('compile').addEventListener('click', function() {
-            const code = myCodeMirror.getValue();
-            const url = 'http://localhost:3000/compile';
-            sendAjax(url, code, setResult)
-        });
 
         document.getElementById('addTestCase').addEventListener('click', function() {
-            compiler.addTestCase('1','2');
+            let input = document.getElementById('input').value;
+            let expected = document.getElementById('expected').value;
+            let list = document.getElementById('testCaseList');
+            if (!!input && !!expected) {
+                compiler.setTestCase(input, expected);
+                let idx = Object.keys(compiler.getTestCase()).length;
+                list.innerHTML += `<tr id=${idx}><td>${input}</td><td>${expected}</td></tr>`;
+            }
         });
 
+        document.getElementById('test').addEventListener('click', function() {
+            let testCases = compiler.getTestCase();
+            Object.keys(testCases).forEach(testCase => {
+                let value = testCases[testCase].input;
+                const url = 'http://localhost:3000/test';
+                sendAjax(url, value, compare)
+            });
+        });
+
+        function compare(value) {
+            let testCases = compiler.getTestCase();
+            let elTableRow = document.getElementById(1);
+            let result = testCases[0].expected == parseInt(value);
+            if (result) {
+                elTableRow.innerHTML += `<td>${result}</td>`;
+            } else {
+
+            }
+        }
 
         function sendAjax(url, data, callback){
             // 입력값을 변수에 담고 문자열 형태로 변환
-            var data = {'code' : data, 'lang': document.getElementById('language').selectedOptions[0].value.toLowerCase()};
+            var data = {
+                'code' : data, 
+                'lang': document.getElementById('language').selectedOptions[0].value.toLowerCase()
+            };
             data = JSON.stringify(data);
 
             // content-type을 설정하고 데이터 송신
@@ -82,15 +108,6 @@
                 const result = document.getElementById('result');
                 callback(xhr.responseText);
             });
-        }
-
-        function setResult(value) {
-            const result = document.getElementById('result');
-            result.value = value;
-            const expected = document.getElementById('quiz').getAttribute('result');
-            if (parseInt(value) == expected) {
-                alert('정답입니다.');
-            }
         }
     </script>
 </html>
