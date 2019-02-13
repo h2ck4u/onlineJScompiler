@@ -28,10 +28,13 @@ class Compiler {
         elQuiz.innerHTML = quiz.content;
         elQuiz.setAttribute('result', quiz.result);
 
-        document.getElementById('compile').addEventListener('click', function() {
-            const code = this.myCodeMirror.getValue();
-            const url = 'http://localhost:3000/compile';
-            sendAjax(url, code, setResult)
+        document.getElementById('run').addEventListener('click', function() {
+            const data = {
+                code: this.myCodeMirror.getValue(),
+                testCase: this.getTestCase()
+            }
+            const url = 'http://localhost:3000/run';
+            sendAjax(url, data, setResult)
         }.bind(this));
 
         document.getElementById('language').addEventListener('change', this.changeLanguage.bind(this));

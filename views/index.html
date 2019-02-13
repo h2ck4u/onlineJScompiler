@@ -21,8 +21,7 @@
             </div>
         </div>
         <div class="bottom">
-            <button id="compile" type="compile">컴파일 하기.</button>
-            <button id="test" type="compile">테스트 하기.</button>
+            <button id="run" type="compile">실행 하기.</button>
             <div id="testCaseArea" style="display: block;">
                 <table style="border: solid 1px black;">
                     <caption>테스트 케이스</caption>
@@ -69,31 +68,12 @@
             }
         });
 
-        document.getElementById('test').addEventListener('click', function() {
-            let testCases = compiler.getTestCase();
-            Object.keys(testCases).forEach(testCase => {
-                let value = testCases[testCase].input;
-                const url = 'http://localhost:3000/test';
-                sendAjax(url, value, compare)
-            });
-        });
-
-        function compare(value) {
-            let testCases = compiler.getTestCase();
-            let elTableRow = document.getElementById(1);
-            let result = testCases[0].expected == parseInt(value);
-            if (result) {
-                elTableRow.innerHTML += `<td>${result}</td>`;
-            } else {
-
-            }
-        }
-
         function sendAjax(url, data, callback){
             // 입력값을 변수에 담고 문자열 형태로 변환
             var data = {
-                'code' : data, 
-                'lang': document.getElementById('language').selectedOptions[0].value.toLowerCase()
+                'code' : data.code, 
+                'lang': document.getElementById('language').selectedOptions[0].value.toLowerCase(),
+                'testCases': data.testCase
             };
             data = JSON.stringify(data);
 

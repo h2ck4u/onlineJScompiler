@@ -20,12 +20,12 @@ app.get('/',function(req,res){
     res.render('index.html')
  });
  
-app.post('/compile', function(req, res) {
+app.post('/run', function(req, res) {
     var body = req.body;
     var executeInfo = {
         javascript: {
             fileName: 'test.js',
-            command: `node test.js ${body.testCase}`,
+            command: `node test.js`,
             code: `var input = parseInt(process.argv[2]);
             ${body.code}
             console.log(solution(input));`
@@ -37,18 +37,22 @@ app.post('/compile', function(req, res) {
         }
     };
 
-    writeFile(executeInfo[body.lang].fileName, executeInfo[body.lang].code);
-    execute(executeInfo[body.lang].command).then(function(result) {
-        res.send(result);
-    });
-});
 
-app.post('/test', function(req, res) {
-    var body = req.body;
-    var data = body.code;
-    execute(`node test.js ${data}`).then(function(result) {
-        res.send(result);
+    writeFile(executeInfo[body.lang].fileName, executeInfo[body.lang].code);
+
+    const testCases = body.testCases;
+    let result = [];
+    
+    Object.keys(testCases).forEach(index => {
+        let testCase = testCases[index];
+        execute(`${executeInfo[body.lang].command} ${testCase.input}`).then(function(output) {
+            result.push(parseInt(output));
+        });
     });
+    setTimeout(() => {
+        res.send(result);
+    }, 1000);
+    
 });
 
 app.listen(PORT, () => {
