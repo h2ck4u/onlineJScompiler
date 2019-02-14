@@ -93,12 +93,17 @@ class Compiler {
         return this.testCase;
     }
 }
-function setResult(value) {
-    const result = document.getElementById('result');
-    result.value = value;
-    const expected = document.getElementById('quiz').getAttribute('result');
-    if (parseInt(value) == expected) {
-        alert('정답입니다.');
+function setResult(value = []) {
+    let arr = JSON.parse(value);
+    if (arr.length > 0) {
+        const testCaseList = document.getElementById('testCaseList');
+        console.log(arr)
+        arr.forEach((result, idx) => {
+            let equal = result == compiler.testCase[idx].expected;
+            let tbody = testCaseList.firstElementChild;
+            tbody.children[idx].innerHTML += `<td>${equal}</td>`;
+        });
+        
     }
 }
 window.Compiler = Compiler;

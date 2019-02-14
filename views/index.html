@@ -60,7 +60,7 @@
         document.getElementById('addTestCase').addEventListener('click', function() {
             let input = document.getElementById('input').value;
             let expected = document.getElementById('expected').value;
-            let list = document.getElementById('testCaseList');
+            let list = document.getElementById('testCaseList').firstElementChild;
             if (!!input && !!expected) {
                 compiler.setTestCase(input, expected);
                 let idx = Object.keys(compiler.getTestCase()).length;
