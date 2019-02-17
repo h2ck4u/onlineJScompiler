@@ -29,12 +29,16 @@ class Compiler {
         elQuiz.setAttribute('result', quiz.result);
 
         document.getElementById('run').addEventListener('click', function() {
-            const data = {
-                code: this.myCodeMirror.getValue(),
-                testCase: this.getTestCase()
+            if(Object.keys(this.getTestCase()).length < 1) {
+                alert('테스트 케이스를 추가하세요.');
+            } else {
+                const data = {
+                    code: this.myCodeMirror.getValue(),
+                    testCase: this.getTestCase()
+                }
+                const url = 'http://localhost:3000/run';
+                sendAjax(url, data, setResult);
             }
-            const url = 'http://localhost:3000/run';
-            sendAjax(url, data, setResult)
         }.bind(this));
 
         document.getElementById('language').addEventListener('change', this.changeLanguage.bind(this));
