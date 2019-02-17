@@ -55,6 +55,26 @@ app.post('/run', function(req, res) {
     
 });
 
+app.post('/getQuiz', function(req, res) {
+    var body = req.body;
+    var quizNumber = body.quizNumber;
+
+    var quiz = {
+        
+    }
+    res.send(quiz);
+});
+
+app.post('/getAnswer', function(req, res) {
+    var body = req.body;
+    var quizNumber = body.quizNumber;
+
+    var quiz = {
+        
+    }
+    res.send(quiz);
+});
+
 app.listen(PORT, () => {
     console.log('Server is running on PORT:', PORT);
 });
