@@ -28,10 +28,13 @@ class Compiler {
         elQuiz.innerHTML = quiz.content;
         elQuiz.setAttribute('result', quiz.result);
 
-        document.getElementById('compile').addEventListener('click', function() {
-            const code = this.myCodeMirror.getValue();
-            const url = 'http://localhost:3000/compile';
-            sendAjax(url, code, setResult)
+        document.getElementById('run').addEventListener('click', function() {
+            const data = {
+                code: this.myCodeMirror.getValue(),
+                testCase: this.getTestCase()
+            }
+            const url = 'http://localhost:3000/run';
+            sendAjax(url, data, setResult)
         }.bind(this));
 
         document.getElementById('language').addEventListener('change', this.changeLanguage.bind(this));
@@ -90,12 +93,17 @@ class Compiler {
         return this.testCase;
     }
 }
-function setResult(value) {
-    const result = document.getElementById('result');
-    result.value = value;
-    const expected = document.getElementById('quiz').getAttribute('result');
-    if (parseInt(value) == expected) {
-        alert('정답입니다.');
+function setResult(value = []) {
+    let arr = JSON.parse(value);
+    if (arr.length > 0) {
+        const testCaseList = document.getElementById('testCaseList');
+        console.log(arr)
+        arr.forEach((result, idx) => {
+            let equal = result == compiler.testCase[idx].expected;
+            let tbody = testCaseList.firstElementChild;
+            tbody.children[idx].innerHTML += `<td>${equal}</td>`;
+        });
+        
     }
 }
 window.Compiler = Compiler;
