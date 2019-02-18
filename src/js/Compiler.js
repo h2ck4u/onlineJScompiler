@@ -1,5 +1,4 @@
 import Quiz from './Quiz';
-import template from './templates';
 
 const LANGUAGE = {
     JAVASCRIPT: {
@@ -22,24 +21,15 @@ class Compiler {
     init() {
         this.setCodeMirror(this.language);
 
-        this.appendOption();
+        const url = 'http://localhost:3000/getAllQuiz';
+        sendAjax(url, {}, this.appendOption.bind(this));
+
         const elQuiz = document.getElementById('quiz');
         const quiz = new Quiz('Quiz1');
-        elQuiz.innerHTML = quiz.content;
+        elQuiz.innerHTML = this.changeQuiz();
         elQuiz.setAttribute('result', quiz.result);
 
-        document.getElementById('run').addEventListener('click', function() {
-            if(Object.keys(this.getTestCase()).length < 1) {
-                alert('테스트 케이스를 추가하세요.');
-            } else {
-                const data = {
-                    code: this.myCodeMirror.getValue(),
-                    testCase: this.getTestCase()
-                }
-                const url = 'http://localhost:3000/run';
-                sendAjax(url, data, setResult);
-            }
-        }.bind(this));
+        document.getElementById('run').addEventListener('click', run);
 
         document.getElementById('language').addEventListener('change', this.changeLanguage.bind(this));
     }
@@ -60,24 +50,25 @@ class Compiler {
         this.myCodeMirror.setValue(this.language.defaultFunction);
     }
 
-    appendOption() {
+    appendOption(arr) {
+        let keys = JSON.parse(arr);
         const elSelectBox = document.getElementById('selectBox');
         let str = '';
-        Object.keys(template).forEach(quiz => {
-            str += `<option value="${quiz}">${quiz}</option>`;
+        keys.forEach(index => {
+            str += `<option value="${index}">quiz${index}</option>`;
         });
         elSelectBox.innerHTML = str;
 
         elSelectBox.addEventListener('change', this.changeQuiz);
     }
 
-    changeQuiz() {
-        const elSelectBox = document.getElementById('selectBox');
-        const elQuiz = document.getElementById('quiz');
-        let value = elSelectBox.value;
-        let quiz = new Quiz(value);
-        elQuiz.innerHTML = quiz.content;
-        elQuiz.setAttribute('result', quiz.result);
+    changeQuiz(event) {
+        let number = !!event && event.target.selectedIndex || 0;
+        const data = {
+            quizNumber: number
+        }
+        const url = 'http://localhost:3000/getQuiz';
+        sendAjax(url, data, setQuiz);
     }
 
     changeLanguage() {
@@ -108,6 +99,29 @@ function setResult(value = []) {
             tbody.children[idx].innerHTML += `<td>${equal}</td>`;
         });
         
+    }
+}
+
+function setQuiz(data = '') {
+    let json = JSON.parse(data);
+    const elSelectBox = document.getElementById('selectBox');
+    const elQuiz = document.getElementById('quiz');
+
+    let value = elSelectBox.value;
+    let quiz = new Quiz(value);
+    elQuiz.innerHTML = json.quiz;
+}
+
+function run() {
+    if(Object.keys(this.getTestCase()).length < 1) {
+        alert('테스트 케이스를 추가하세요.');
+    } else {
+        const data = {
+            code: this.myCodeMirror.getValue(),
+            testCase: this.getTestCase()
+        }
+        const url = 'http://localhost:3000/run';
+        sendAjax(url, data, setResult);
     }
 }
 window.Compiler = Compiler;

@@ -55,13 +55,24 @@ app.post('/run', function(req, res) {
     
 });
 
+app.post('/getAllQuiz', function(req, res) {
+    var jsonContent = fs.readFileSync("Quiz.json");
+    var quizList = JSON.parse(jsonContent);
+
+    res.send(Object.keys(quizList));
+});
+
 app.post('/getQuiz', function(req, res) {
+    var jsonContent = fs.readFileSync("Quiz.json");
+    var quizList = JSON.parse(jsonContent);
+    
     var body = req.body;
     var quizNumber = body.quizNumber;
 
     var quiz = {
-        
+        'quiz': quizList[quizNumber].quiz
     }
+    
     res.send(quiz);
 });
 
