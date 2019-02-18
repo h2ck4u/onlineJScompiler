@@ -1,5 +1,3 @@
-import Quiz from './Quiz';
-
 const LANGUAGE = {
     JAVASCRIPT: {
         mode: 'javascript',
@@ -25,11 +23,9 @@ class Compiler {
         sendAjax(url, {}, this.appendOption.bind(this));
 
         const elQuiz = document.getElementById('quiz');
-        const quiz = new Quiz('Quiz1');
         elQuiz.innerHTML = this.changeQuiz();
-        elQuiz.setAttribute('result', quiz.result);
 
-        document.getElementById('run').addEventListener('click', run);
+        document.getElementById('run').addEventListener('click', run.bind(this));
 
         document.getElementById('language').addEventListener('change', this.changeLanguage.bind(this));
     }
@@ -92,7 +88,6 @@ function setResult(value = []) {
     let arr = JSON.parse(value);
     if (arr.length > 0) {
         const testCaseList = document.getElementById('testCaseList');
-        console.log(arr)
         arr.forEach((result, idx) => {
             let equal = result == compiler.testCase[idx].expected;
             let tbody = testCaseList.firstElementChild;
@@ -104,11 +99,8 @@ function setResult(value = []) {
 
 function setQuiz(data = '') {
     let json = JSON.parse(data);
-    const elSelectBox = document.getElementById('selectBox');
     const elQuiz = document.getElementById('quiz');
 
-    let value = elSelectBox.value;
-    let quiz = new Quiz(value);
     elQuiz.innerHTML = json.quiz;
 }
 
