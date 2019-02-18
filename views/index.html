@@ -60,7 +60,7 @@
         document.getElementById('addTestCase').addEventListener('click', function() {
             let input = document.getElementById('input').value;
             let expected = document.getElementById('expected').value;
-            let list = document.getElementById('testCaseList').firstElementChild;
+            let list = document.getElementById('testCaseList').firstElementChild || document.getElementById('testCaseList');
             if (!!input && !!expected) {
                 compiler.setTestCase(input, expected);
                 let idx = Object.keys(compiler.getTestCase()).length;
@@ -71,6 +71,7 @@
         function sendAjax(url, data, callback){
             // 입력값을 변수에 담고 문자열 형태로 변환
             var data = {
+                'quizNumber': data.quizNumber,
                 'code' : data.code, 
                 'lang': document.getElementById('language').selectedOptions[0].value.toLowerCase(),
                 'testCases': data.testCase
