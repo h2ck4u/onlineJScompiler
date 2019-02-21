@@ -77,13 +77,16 @@ app.post('/getQuiz', function(req, res) {
 });
 
 app.post('/getAnswer', function(req, res) {
+    var jsonContent = fs.readFileSync("Quiz.json");
+    var quizList = JSON.parse(jsonContent);
+
     var body = req.body;
     var quizNumber = body.quizNumber;
 
-    var quiz = {
-        
+    var answer = {
+        'answer': quizList[quizNumber].result
     }
-    res.send(quiz);
+    res.send(answer);
 });
 
 app.listen(PORT, () => {
