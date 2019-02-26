@@ -100,7 +100,11 @@ function writeFile(fileName, data) {
 function execute(command) {
     return new Promise(function(resolve, reject) {
         var exec = require('child_process').exec;
-        exec(command, function(error, stdout, stderr) {
+        var option = {
+            timeout: 200,
+            maxBuffer: 1024
+        }
+        exec(command, option, function(error, stdout, stderr) {
             if (error !== null) {
                 console.log('exec error: ' + error);
             } else {
