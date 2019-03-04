@@ -36,13 +36,14 @@ class Compiler {
             this.myCodeMirror = CodeMirror.fromTextArea(content, {
                 smartIndent: true,
                 indentWithTabs: true,
+                matchBrackets: true,
                 lineNumbers: true,
                 tabSize: 4,
-                theme: 'monokai.css'
+                theme: "darcula"
             });
         }
 
-        this.myCodeMirror.setOption('mode', this.language.mode);
+        this.myCodeMirror.setOption('mode', 'javascript');
         this.myCodeMirror.setValue(this.language.defaultFunction);
     }
 
