@@ -10,47 +10,49 @@
     </head>
     <body onload="initCompiler();">
         <div>
-            <div class="quiz">
-                <select id="selectBox"></select>
-                <span id="quiz"></span>
+            <div>
+                <div class="quiz">
+                    <select id="selectBox"></select>
+                    <span id="quiz"></span>
+                </div>
+                <div class="quiz">
+                    <select id="language">
+                        <option value="JAVASCRIPT">javascript</option>
+                        <option value="PYTHON">python</option>
+                    </select>
+                    <textarea id="content" name="content"></textarea><br />
+                </div>
             </div>
-            <div class="quiz">
-                <select id="language">
-                    <option value="JAVASCRIPT">javascript</option>
-                    <option value="PYTHON">python</option>
-                </select>
-                <textarea id="content" name="content"></textarea><br />
+            <div class="bottom">
+                <div id="testCaseArea" style="display: block;">
+                    <table style="border: solid 1px black;">
+                        <caption style="background: #2B2B2B; color: white;">테스트 케이스</caption>
+                        <tr>
+                            <td style="background: #2B2B2B; color: white;">
+                                입력값
+                            </td>
+                            <td style="background: #2B2B2B; color: white;">
+                                기대값
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input id="input" style="background: #2B2B2B; color: white;"></input>
+                            </td>
+                            <td>
+                                <input id="expected" style="background: #2B2B2B; color: white;"></input>
+                            </td>
+                        </tr>
+                    </table>
+                    <button id="addTestCase">테스트케이스 추가하기.</button>
+                    <table id="testCaseList" style="border: solid 1px black; width:274px;"></table>
+                    </table>
+                </div>
             </div>
-        </div>
-        <div class="bottom">
-            <button id="run" type="compile">실행 하기.</button>
-            <div id="testCaseArea" style="display: block;">
-                <table style="border: solid 1px black;">
-                    <caption>테스트 케이스</caption>
-                    <tr>
-                        <td>
-                            입력값
-                        </td>
-                        <td>
-                            기대값
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input id="input"></input>
-                        </td>
-                        <td>
-                            <input id="expected"></input>
-                        </td>
-                    </tr>
-                </table>
-                <button id="addTestCase">테스트케이스 추가하기.</button>
-                <table id="testCaseList" style="border: solid 1px black; width:274px;"></table>
-                </table>
+            <div class="result" style="width:40%;">
+                <textarea id="result" style="background: #2B2B2B; color: white;"></textarea>
+                <button id="run" type="compile">실행 하기.</button>
             </div>
-        </div>
-        <div class="result">
-            <textarea id="result"></textarea>
         </div>
     </body>
     <script>

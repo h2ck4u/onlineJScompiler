@@ -22,11 +22,18 @@ select {
 }
 
 .bottom {
-    width: 100%;
+    background: #2B2B2B;
+    color: white;
+    width: 40%;
+    height: 20%;
     float: left;
 }
 
 .result {
-    width: 100%;
+    background: #2B2B2B;
+    color: white;
+    width: 40%;
+    height: 20%;
     float: left;
+    border: dotted 1px black;
 }
