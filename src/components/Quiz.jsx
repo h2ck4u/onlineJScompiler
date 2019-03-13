@@ -4,14 +4,15 @@ import '../css/App.css'
 class Quiz extends Component {
 
     static defaultProps = {
-        title: '제목',
-        quiz: 'quiz1'
+        title: '공배수의 합 계산하기',
+        quiz: '10보다 작은 자연수 중에서 3 또는 5의 배수는 3, 5, 6, 9 이고, 이것을 모두 더하면 23입니다. 1000보다 작은 자연수 중에서 3 또는 5의 배수를 모두 더하면 얼마일까요?'
     }
 
     render() {
         return (
             <div className = "container">
-                퀴즈영역
+                <select>{this.props.title}</select>
+                <div>{this.props.quiz}</div>
             </div>
         );
     }
