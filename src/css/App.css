@@ -1,0 +1,8 @@
+.container {
+    width: 40%;
+    height: 40%;
+    border: dotted 1px black;
+    background: #2B2B2B;
+    color: white;
+    float: left;
+}

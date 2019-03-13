@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
+import '../css/App.css'
 
 class Quiz extends Component {
-    
+
     static defaultProps = {
         title: '제목',
         quiz: 'quiz1'
@@ -9,8 +10,8 @@ class Quiz extends Component {
 
     render() {
         return (
-            <div>
-                
+            <div className = "container">
+                퀴즈영역
             </div>
         );
     }
