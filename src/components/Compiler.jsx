@@ -7,7 +7,7 @@ require('codemirror/mode/javascript/javascript.js');
 
 class Compiler extends Component {
     state = {
-        value: 'function solution() { \r\treturn; \r}'
+        code: 'function solution() { \r\treturn; \r}'
     };
 
     render() {
@@ -19,7 +19,7 @@ class Compiler extends Component {
         return (
         <div className = "container">
             <CodeMirror
-                value={this.state.value}
+                value={this.state.code}
                 options={options}
                 onBeforeChange={(editor, data, value) => {
                     this.setState({value});

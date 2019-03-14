@@ -5,13 +5,14 @@ import TestCase from './TestCase';
 import Result from './Result';
 
 class App extends React.Component {
+    state = {
+        lang: 'javascript',
+    };
     render(){
-
         return (
             <div>
                 <Quiz></Quiz>
                 <Compiler></Compiler>
-                <TestCase></TestCase>
                 <Result></Result>
             </div>
         );
