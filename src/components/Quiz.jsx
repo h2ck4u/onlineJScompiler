@@ -6,16 +6,17 @@ class Quiz extends Component {
         super(props);
 
         this.state = {
-            options: [
-                {
-                    title: 'quiz1',
-                    quiz: '1111'
-                },
-                {
-                    title: 'quiz2',
-                    quiz: '2222'
+            quiz: {
+                quiz1: {
+                    title: '공배수의 합 계산하기',
+                    quiz: '10보다 작은 자연수 중에서 3 또는 5의 배수는 3, 5, 6, 9 이고, 이것을 모두 더하면 23입니다. 1000보다 작은 자연수 중에서 3 또는 5의 배수를 모두 더하면 얼마일까요?'
+                }, 
+                quiz2: {
+                    title: '??',
+                    quiz: '???'
                 }
-            ],
+            },
+            value: '10보다 작은 자연수 중에서 3 또는 5의 배수는 3, 5, 6, 9 이고, 이것을 모두 더하면 23입니다. 1000보다 작은 자연수 중에서 3 또는 5의 배수를 모두 더하면 얼마일까요?'
         }
     }
     static defaultProps = {
@@ -24,22 +25,25 @@ class Quiz extends Component {
     }
 
     handleChange = (event) => {
-        this.setState({ value: event.target.value });
+        this.setState({ value: 'aaa' });
     };
     componentDidUpdate() {
         console.log('update!!')
     }
     render() {
-        const { options, value } = this.state;
-
+        const { quiz, value } = this.state;
+        const style = {
+            width: '100%',
+            height: '100%'
+        };
         return (
             <div className = "container">
                 <select onChange={this.handleChange} >
-                {this.state.options.map(item => (
+                {Object.keys(quiz).map(item => (
                     <option key={item.title} value={item.title}>{item.title}</option>
                 ))}
                 </select>
-                <div>{value}</div>
+                <div style = {style}>{value}</div>
             </div>
         );
     }
