@@ -7,7 +7,7 @@ class Quiz extends Component {
     }
 
     handleChange = (event) => {
-        this.setState({ value: 'aaa' });
+        this.props.callbackFromParent(event);
     };
     componentDidUpdate() {
         console.log('update!!')
@@ -19,7 +19,7 @@ class Quiz extends Component {
         };
         return (
             <div className = "container">
-                <select onChange={this.handleChange} >
+                <select onChange={ this.handleChange } >
                 {this.props.titles.map(title => (
                     <option key={title} value={title}>{title}</option>
                 ))}
