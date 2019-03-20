@@ -1,8 +1,8 @@
-import react, {Component} from 'react';
-import Quiz from './components/Quiz';
-import Result from './components/Result';
-import Compiler from './components/Compiler';
-import TestCase from './components/TestCase';
+import React, {Component} from 'react';
+import Quiz from '../components/Quiz';
+import Result from '../components/Result';
+import Compiler from '../components/Compiler';
+import TestCase from '../components/TestCase';
 
 class Container extends Component {
     constructor(props) {
@@ -19,6 +19,7 @@ class Container extends Component {
                     quiz: '???'
                 }
             },
+            titles: ['공배수의 합 계산하기', 'A + B', 'A * B'],
             value: '10보다 작은 자연수 중에서 3 또는 5의 배수는 3, 5, 6, 9 이고, 이것을 모두 더하면 23입니다. 1000보다 작은 자연수 중에서 3 또는 5의 배수를 모두 더하면 얼마일까요?'
         }
     }
@@ -32,17 +33,16 @@ class Container extends Component {
         return (
         <div>
             <div>
-                <Title></Title>
-                <Lang></Lang>
             </div>
             <div>
-                <Quiz></Quiz>
-                <Compiler></Compiler>
-                <Result></Result>
+                <Quiz 
+                    quiz = { this.state.quiz['quiz1'].quiz }
+                    titles = { this.state.titles }/>
+                <Compiler/>
+                <Result/>
             </div>
             <div>
-                <TestCase></TestCase>
-                <Button></Button>
+                <TestCase/>
             </div>
         </div>
         );
