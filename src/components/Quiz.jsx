@@ -6,12 +6,14 @@ class Quiz extends Component {
         super(props);
     }
 
-    handleChange = (event) => {
-        this.props.callbackFromParent(event);
+    itemChange = (event) => {
+        this.props.callbackItemChange(event);
     };
+    
     componentDidUpdate() {
         console.log('update!!')
     }
+    
     render() {
         const style = {
             width: '100%',
@@ -19,7 +21,7 @@ class Quiz extends Component {
         };
         return (
             <div className = "container">
-                <select onChange={ this.handleChange } >
+                <select onChange={ this.itemChange } >
                 {this.props.titles.map(title => (
                     <option key={title} value={title}>{title}</option>
                 ))}
