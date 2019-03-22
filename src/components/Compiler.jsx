@@ -17,17 +17,19 @@ class Compiler extends Component {
             lineNumbers: true
         };
         return (
-        <div className = "container run">
-            <CodeMirror
-                value={this.state.code}
-                options={options}
-                onBeforeChange={(editor, data, value) => {
-                    this.setState({value});
-                }}
-                onChange={(editor, data, value) => {
-                }}
-            />
-        </div>
+            <div className = "code-section">
+                <div className = "container run">
+                    <CodeMirror
+                        value={this.state.code}
+                        options={options}
+                        onBeforeChange={(editor, data, value) => {
+                            this.setState({value});
+                        }}
+                        onChange={(editor, data, value) => {
+                        }}
+                    />
+                </div>
+            </div>
         );
     }
 }

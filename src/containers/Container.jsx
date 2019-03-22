@@ -68,16 +68,14 @@ class Container extends Component {
 
     render() {
         return (
-        <div>
-            <div>
-            </div>
+        <div className = "main-section">
             <div>
                 <Quiz 
                     quiz = { this.state.quizList['quiz1'].quiz }
                     titles = { this.state.titles }
                     callbackItemChange = { this.itemChange }/>
             </div>
-            <div>
+            <div className = "run-section">
                 <Compiler/>
                 <Result/>
             </div>
