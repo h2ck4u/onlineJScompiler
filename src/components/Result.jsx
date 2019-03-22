@@ -4,7 +4,7 @@ import '../css/App.css'
 class Result extends Component {
     render() {
         return (
-            <div className = "container">
+            <div className = "container output">
                 결과 영역
             </div>
         );

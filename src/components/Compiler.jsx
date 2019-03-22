@@ -17,7 +17,7 @@ class Compiler extends Component {
             lineNumbers: true
         };
         return (
-        <div className = "container">
+        <div className = "container run">
             <CodeMirror
                 value={this.state.code}
                 options={options}

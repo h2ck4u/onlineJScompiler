@@ -1,8 +1,22 @@
 .container {
-    width: 40%;
-    height: 40%;
     border: dotted 1px black;
     background: #2B2B2B;
     color: white;
     float: left;
+}
+
+.guide {
+    width: calc(40% - 12px);
+    height: calc(100vh - (3.125rem + 3.125rem + 3.5625rem));
+}
+
+.run {
+    width: calc(60% - 12px);
+    height: calc(60% - 7px);
+}
+
+.output {
+    width: calc(60% - 12px);
+    height: calc(40% - 7px);
+    /* height: calc(40% - 7px); */
 }

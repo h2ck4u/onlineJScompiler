@@ -20,7 +20,7 @@ class Quiz extends Component {
             height: '100%'
         };
         return (
-            <div className = "container">
+            <div className = "container guide">
                 <select onChange={ this.itemChange } >
                 {this.props.titles.map(title => (
                     <option key={title} value={title}>{title}</option>

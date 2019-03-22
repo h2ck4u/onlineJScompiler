@@ -76,6 +76,8 @@ class Container extends Component {
                     quiz = { this.state.quizList['quiz1'].quiz }
                     titles = { this.state.titles }
                     callbackItemChange = { this.itemChange }/>
+            </div>
+            <div>
                 <Compiler/>
                 <Result/>
             </div>
