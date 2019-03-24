@@ -26,6 +26,7 @@ class Compiler extends Component {
                             this.setState({value});
                         }}
                         onChange={(editor, data, value) => {
+                            this.setState({value});
                         }}
                     />
                 </div>

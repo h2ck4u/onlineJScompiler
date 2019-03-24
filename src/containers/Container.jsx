@@ -22,8 +22,6 @@ class Container extends Component {
         }
 
         this.setQuizList = () => {
-            //ajax에서 가져와야함.
-            // component init시 셋팅하도록!
             let quizList = {};
             QuizData.forEach(data => {
                 let title = data.title;
