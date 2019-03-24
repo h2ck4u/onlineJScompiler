@@ -3,6 +3,7 @@ import Quiz from '../components/Quiz';
 import Result from '../components/Result';
 import Compiler from '../components/Compiler';
 import TestCase from '../components/TestCase';
+import Button from '../components/Button';
 import QuizData from '../../Quiz.json';
 
 class Container extends Component {
@@ -60,7 +61,8 @@ class Container extends Component {
                 <Result/>
             </div>
             <div>
-                <TestCase/>
+                {/* <TestCase/> */}
+                <Button></Button>
             </div>
         </div>
         );
