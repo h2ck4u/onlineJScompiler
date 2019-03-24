@@ -3,18 +3,20 @@ import Quiz from '../components/Quiz';
 import Result from '../components/Result';
 import Compiler from '../components/Compiler';
 import TestCase from '../components/TestCase';
+import QuizData from '../../Quiz.json';
 
 class Container extends Component {
     constructor(props) {
         super(props);
 
         this.itemChange = (dataFromChild) => {
+            const target = dataFromChild.currentTarget;
+            const selected = target.selectedOptions[0];
+            const title = selected.value;
             this.setState({
                 quiz: {
-                    quiz1: {
-                        title: 'test!!',
-                        quiz: 'testQuiz!!'
-                    }
+                        title: title,
+                        quiz: this.state.quizList[title].quiz
                 }
             });
         }
@@ -22,34 +24,20 @@ class Container extends Component {
         this.setQuizList = () => {
             //ajax에서 가져와야함.
             // component init시 셋팅하도록!
-            const dummyData = [{
-                quiz1: {
-                    title: 'quiz1',
-                    quiz: 'quiz1'
-                }
-            }, {
-                quiz2: {
-                    title: 'quiz2',
-                    quiz: 'quiz2'
-                }
-            }, {
-                quiz3: {
-                    title: 'quiz3',
-                    quiz: 'quiz3'
-                }
-            }, {
-                quiz4: {
-                    title: 'quiz4',
-                    quiz: 'quiz4'
-                }
-            }];
             let quizList = {};
-            dummyData.forEach((data, idx) => {
-                let key = Object.keys(data);
-                quizList[key] = dummyData[idx][key];
-            });               
+            QuizData.forEach(data => {
+                let title = data.title;
+                quizList[title] = {
+                    title: title,
+                    quiz: data.quiz
+                };
+            });
 
             this.setState({
+                quiz: {
+                    title: quizList["공배수의 합"].title,
+                    quiz: quizList["공배수의 합"].quiz
+                },
                 quizList: quizList,
                 titles: Object.keys(quizList)
             });
@@ -60,19 +48,13 @@ class Container extends Component {
         this.setQuizList();
     }
 
-    static defaultProps = {
-        title: '공배수의 합 계산하기',
-        quiz: '10보다 작은 자연수 중에서 3 또는 5의 배수는 3, 5, 6, 9 이고, 이것을 모두 더하면 23입니다. 1000보다 작은 자연수 중에서 3 또는 5의 배수를 모두 더하면 얼마일까요?',
-        lang: 'javascript'
-    }
-
     render() {
         return (
         <div className = "main-section">
             <div>
                 <Quiz 
-                    quiz = { this.state.quizList['quiz1'].quiz }
                     titles = { this.state.titles }
+                    quiz = { this.state.quiz.quiz }
                     callbackItemChange = { this.itemChange }/>
             </div>
             <div className = "run-section">

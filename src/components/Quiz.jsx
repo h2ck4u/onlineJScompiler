@@ -10,9 +10,7 @@ class Quiz extends Component {
         this.props.callbackItemChange(event);
     };
     
-    componentDidUpdate() {
-        console.log('update!!')
-    }
+    componentDidUpdate() {}
     
     render() {
         const style = {
