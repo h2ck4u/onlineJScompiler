@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
+import axios from "axios";
 
 class Button extends Component {
     execute() {
-        console.log('excute!!!');
+        axios.post('/run');
     }
     
     constructor(props) {
