@@ -5,7 +5,7 @@ class Button extends Component {
     execute() {
         axios.post('/run', {
             lang: 'javascript',
-            code: 'console.log(a)'
+            code: 'function solution(input) { return input;}',
         });
     }
     

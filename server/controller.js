@@ -29,10 +29,11 @@ const controller = {
         // Object.keys(testCases).forEach(index => {
         //     let testCase = testCases[index];
             // execute(`${executeInfo[body.lang].command} ${testCase.input}`).then(function(output) {
-            execute(`${executeInfo[body.lang].command}`).then(function(output) {
+            execute(`${executeInfo[body.lang].command} 2`).then(function(output) {
                 result.push(parseInt(output));
             });
         // });
+        
         setTimeout(() => {
             res.send(result);
         }, 1000);
