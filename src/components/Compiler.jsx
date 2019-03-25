@@ -5,7 +5,7 @@ import '../css/App.css'
 require('codemirror/lib/codemirror.css');
 require('codemirror/mode/javascript/javascript.js');
 
-class Compiler extends Component {
+export default class Compiler extends Component {
     state = {
         code: 'function solution() { \r\treturn; \r}'
     };
@@ -34,5 +34,3 @@ class Compiler extends Component {
         );
     }
 }
-
-export default Compiler;

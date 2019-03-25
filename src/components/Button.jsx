@@ -1,22 +1,24 @@
 import React, {Component} from 'react';
 import axios from "axios";
 
-class Button extends Component {
-    execute() {
+export default class Button extends Component {
+    onClick() {
         axios.post('/run', {
             lang: 'javascript',
-            code: 'function solution(input) { return input;}',
+            code: 'function solution(input) { return input; }',
+        }).then(response => {
+            console.log(response);
         });
     }
-    
+
     constructor(props) {
         super(props);
-        this.execute = this.execute.bind(this);
+        this.execute = this.onClick.bind(this);
     }
 
     render() {
         return (
-            <button onClick = { this.execute }> {this.props.type} </button>
+            <button onClick = { this.onClick }> {this.props.type} </button>
         );
     }
 }
@@ -24,5 +26,3 @@ class Button extends Component {
 Button.defaultProps = {
     type: 'Run'
 };
-
-export default Button;

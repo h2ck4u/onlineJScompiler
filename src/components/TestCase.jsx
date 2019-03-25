@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import '../css/App.css'
 
-class TestCase extends Component {
+export default class TestCase extends Component {
     render() {
         return (
             <div className = "container">
@@ -10,5 +10,3 @@ class TestCase extends Component {
         );
     }
 }
-
-export default TestCase;

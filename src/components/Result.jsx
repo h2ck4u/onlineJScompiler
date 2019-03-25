@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import '../css/App.css'
 
-class Result extends Component {
+export default class Result extends Component {
     render() {
         return (
             <div className = "output-section">
@@ -17,5 +17,3 @@ class Result extends Component {
         );
     }
 }
-
-export default Result;

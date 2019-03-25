@@ -6,7 +6,7 @@ import TestCase from '../components/TestCase';
 import Button from '../components/Button';
 import QuizData from '../../Quiz.json';
 
-class Container extends Component {
+export default class Container extends Component {
     constructor(props) {
         super(props);
 
@@ -70,5 +70,3 @@ class Container extends Component {
         );
     }
 }
-
-export default Container;
