@@ -5,7 +5,7 @@ const app = express();
 const cors = require('cors');
 const PORT = process.env.PORT || 3000
 
-app.set('views', __dirname + '/views');
+app.set('views', __dirname + '/public');
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
