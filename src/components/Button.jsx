@@ -3,7 +3,10 @@ import axios from "axios";
 
 class Button extends Component {
     execute() {
-        axios.post('/run');
+        axios.post('/run', {
+            lang: 'javascript',
+            code: 'console.log(a)'
+        });
     }
     
     constructor(props) {
