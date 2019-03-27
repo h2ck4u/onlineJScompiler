@@ -6,14 +6,18 @@ export default class Button extends Component {
         axios.post('/run', {
             lang: 'javascript',
             code: 'function solution(input) { return input; }',
+            selectedQuiz: 0
         }).then(response => {
-            console.log(response);
+            this.props.handleClick(response);
         });
     }
 
     constructor(props) {
         super(props);
-        this.execute = this.onClick.bind(this);
+        this.state = {
+            result: false
+        };
+        this.onClick = this.onClick.bind(this);
     }
 
     render() {

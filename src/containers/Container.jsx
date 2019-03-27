@@ -12,12 +12,21 @@ export default class Container extends Component {
 
         this.state = {
             selectedKey: 0,
+            result: '',
             quiz: {}
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.itemChange = this.itemChange.bind(this);
         this.setQuizList = this.setQuizList.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick(e) {
+        console.log(e.data.result);
+        this.setState({
+            result: e.data.result
+        });
     }
 
     handleChange(e) {
@@ -55,15 +64,17 @@ export default class Container extends Component {
                 <Quiz 
                     titleList = { this.state.titleList }
                     selectedQuiz = { this.state.quizList[this.state.selectedKey] }
-                    callbackItemChange = { this.itemChange }/>
+                    callbackItemChange = { this.itemChange } />
             </div>
             <div className = "run-section">
                 <Compiler/>
-                <Result/>
+                <Result
+                    result = { this.state.result } />
             </div>
             <div>
                 {/* <TestCase/> */}
-                <Button></Button>
+                <Button
+                    handleClick = { this.handleClick } />
             </div>
         </div>
         );

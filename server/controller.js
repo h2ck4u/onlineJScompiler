@@ -25,7 +25,7 @@ const controller = {
 
         var jsonContent = fs.readFileSync("Quiz.json");
         var quizList = JSON.parse(jsonContent);
-        var expected = quizList[0].result;
+        var expected = quizList[body.selectedQuiz].result;
         execute(`${executeInfo[body.lang].command} 233168`).then( output => {
             res.json({result: expected == parseInt(output)});
         });
