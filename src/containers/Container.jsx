@@ -28,7 +28,6 @@ export default class Container extends Component {
 
     itemChange = (dataFromChild) => {
         const selectedKey = dataFromChild.target.selectedIndex;
-        console.log(selectedKey);
         this.setState({
             selectedKey: selectedKey,
             quiz: {
