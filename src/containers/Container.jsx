@@ -28,9 +28,10 @@ class Container extends Component {
 
     itemChange = (dataFromChild) => {
         const selectedKey = dataFromChild.target.selectedIndex;
+        console.log(selectedKey);
         this.setState({
+            selectedKey: selectedKey,
             quiz: {
-                selectedKey: selectedKey,
                 title: this.state.titleList[selectedKey],
                 quiz: this.state.quizList[selectedKey]
             }
