@@ -10,37 +10,38 @@ class Container extends Component {
     constructor(props) {
         super(props);
 
-        this.itemChange = (dataFromChild) => {
-            const target = dataFromChild.currentTarget;
-            const selected = target.selectedOptions[0];
-            const title = selected.value;
-            this.setState({
-                quiz: {
-                        title: title,
-                        quiz: this.state.quizList[title].quiz
-                }
-            });
-        }
+        this.state = {
+            selectedKey: 0,
+            quiz: {}
+        };
 
-        this.setQuizList = () => {
-            let quizList = {};
-            QuizData.forEach(data => {
-                let title = data.title;
-                quizList[title] = {
-                    title: title,
-                    quiz: data.quiz
-                };
-            });
+        this.handleChange = this.handleChange.bind(this);
+        this.itemChange = this.itemChange.bind(this);
+        this.setQuizList = this.setQuizList.bind(this);
+    }
 
-            this.setState({
-                quiz: {
-                    title: quizList["공배수의 합"].title,
-                    quiz: quizList["공배수의 합"].quiz
-                },
-                quizList: quizList,
-                titles: Object.keys(quizList)
-            });
-        }
+    handleChange(e) {
+        this.setState({
+            keyword: e.target.value
+        });
+    }
+
+    itemChange = (dataFromChild) => {
+        const selectedKey = dataFromChild.target.selectedIndex;
+        this.setState({
+            quiz: {
+                selectedKey: selectedKey,
+                title: this.state.titleList[selectedKey],
+                quiz: this.state.quizList[selectedKey]
+            }
+        });
+    }
+
+    setQuizList = () => {
+        this.setState({
+            titleList: QuizData.map(quiz => quiz.title),
+            quizList: QuizData.map(quiz => quiz.quiz)
+        });
     }
 
     componentWillMount() {
@@ -52,8 +53,8 @@ class Container extends Component {
         <div className = "main-section">
             <div>
                 <Quiz 
-                    titles = { this.state.titles }
-                    quiz = { this.state.quiz.quiz }
+                    titleList = { this.state.titleList }
+                    selectedQuiz = { this.state.quizList[this.state.selectedKey] }
                     callbackItemChange = { this.itemChange }/>
             </div>
             <div className = "run-section">

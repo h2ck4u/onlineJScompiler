@@ -4,6 +4,8 @@ import '../css/App.css'
 class Quiz extends Component {
     constructor(props) {
         super(props);
+
+        this.itemChange = this.itemChange.bind(this);
     }
 
     itemChange = (event) => {
@@ -20,11 +22,11 @@ class Quiz extends Component {
         return (
             <div className = "container guide">
                 <select onChange={ this.itemChange } >
-                {this.props.titles.map(title => (
+                {this.props.titleList.map(title => (
                     <option key={title} value={title}>{title}</option>
                 ))}
                 </select>
-                <div style = {style}>{this.props.quiz}</div>
+                <div style = {style}> {this.props.selectedQuiz} </div>
             </div>
         );
     }
