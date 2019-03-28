@@ -1,19 +1,28 @@
 import React, {Component} from 'react';
 import axios from "axios";
 
-class Button extends Component {
-    execute() {
-        axios.post('/run');
+export default class Button extends Component {
+    onClick() {
+        axios.post('/run', {
+            lang: 'javascript',
+            code: 'function solution(input) { return input; }',
+            selectedQuiz: 0
+        }).then(response => {
+            this.props.handleClick(response);
+        });
     }
-    
+
     constructor(props) {
         super(props);
-        this.execute = this.execute.bind(this);
+        this.state = {
+            result: false
+        };
+        this.onClick = this.onClick.bind(this);
     }
 
     render() {
         return (
-            <button onClick = { this.execute }> {this.props.type} </button>
+            <button onClick = { this.onClick }> {this.props.type} </button>
         );
     }
 }
@@ -21,5 +30,3 @@ class Button extends Component {
 Button.defaultProps = {
     type: 'Run'
 };
-
-export default Button;

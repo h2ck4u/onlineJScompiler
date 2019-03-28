@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
 import '../css/App.css'
 
-class Result extends Component {
+export default class Result extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
             <div className = "output-section">
@@ -11,11 +15,13 @@ class Result extends Component {
                     </div>
                 </div>
                 <div className = "container output">
-                                결과 영역
+                    { this.props.result }
                 </div>
             </div>
         );
     }
 }
 
-export default Result;
+Result.defaultProps = {
+    result: ''
+};

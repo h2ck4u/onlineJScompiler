@@ -23,18 +23,12 @@ const controller = {
         };
         writeFile(executeInfo[body.lang].fileName, executeInfo[body.lang].code);
 
-        const testCases = body.testCases;
-        let result = [];
-        
-        Object.keys(testCases).forEach(index => {
-            let testCase = testCases[index];
-            execute(`${executeInfo[body.lang].command} ${testCase.input}`).then(function(output) {
-                result.push(parseInt(output));
-            });
+        var jsonContent = fs.readFileSync("Quiz.json");
+        var quizList = JSON.parse(jsonContent);
+        var expected = quizList[body.selectedQuiz].result;
+        execute(`${executeInfo[body.lang].command} 233168`).then( output => {
+            res.json({result: expected == parseInt(output)});
         });
-        setTimeout(() => {
-            res.send(result);
-        }, 1000);
     },
 
     getAllQuiz: (req, res) => {
@@ -86,6 +80,7 @@ function execute(command) {
         exec(command, option, function(error, stdout, stderr) {
             if (error !== null) {
                 console.log('exec error: ' + error);
+                reject(error);
             } else {
                 console.log('stdout: ' + stdout);
                 resolve(stdout);
