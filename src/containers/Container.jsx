@@ -12,6 +12,7 @@ export default class Container extends Component {
 
         this.state = {
             selectedKey: 0,
+            code: '',
             result: '',
             quiz: {}
         };
@@ -20,6 +21,7 @@ export default class Container extends Component {
         this.itemChange = this.itemChange.bind(this);
         this.setQuizList = this.setQuizList.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.handleCodeMirrorChange = this.handleCodeMirrorChange.bind(this);
     }
 
     handleClick(e) {
@@ -36,6 +38,12 @@ export default class Container extends Component {
         this.setState({
             keyword: e.target.value
         });
+    }
+
+    handleCodeMirrorChange(value) {
+        this.setState({
+            code: value
+        })
     }
 
     itemChange = (dataFromChild) => {
@@ -70,13 +78,14 @@ export default class Container extends Component {
                     callbackItemChange = { this.itemChange } />
             </div>
             <div className = "run-section">
-                <Compiler/>
+                <Compiler handleCodeMirrorChange = { this.handleCodeMirrorChange}/>
                 <Result result = { this.state.result }/>
             </div>
             <div>
                 {/* <TestCase/> */}
                 <Button
-                    handleClick = { this.handleClick } />
+                    handleClick = { this.handleClick } 
+                    code = { this.state.code } />
             </div>
         </div>
         );
