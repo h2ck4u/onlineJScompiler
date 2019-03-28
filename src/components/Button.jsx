@@ -14,9 +14,6 @@ export default class Button extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            result: false
-        };
         this.onClick = this.onClick.bind(this);
     }
 
