@@ -23,9 +23,12 @@ export default class Container extends Component {
     }
 
     handleClick(e) {
-        console.log(e.data.result);
+        let resultMsg = '정답이 아닙니다.'
+        if (e.data.result) {
+            resultMsg = '정답입니다.'
+        }
         this.setState({
-            result: e.data.result
+            result: resultMsg
         });
     }
 
@@ -68,8 +71,7 @@ export default class Container extends Component {
             </div>
             <div className = "run-section">
                 <Compiler/>
-                <Result
-                    result = { this.state.result } />
+                <Result result = { this.state.result }/>
             </div>
             <div>
                 {/* <TestCase/> */}

@@ -23,5 +23,5 @@ export default class Result extends Component {
 }
 
 Result.defaultProps = {
-    result: '123123'
+    result: ''
 };
