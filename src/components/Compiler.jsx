@@ -18,7 +18,8 @@ export default class Compiler extends Component {
         let options = {
             mode: 'javascript',
             theme: 'darcula',
-            lineNumbers: true
+            lineNumbers: true,
+            height: '100%'
         };
         return (
             <div className = "code-section">
