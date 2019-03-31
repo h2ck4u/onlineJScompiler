@@ -3,9 +3,10 @@ import axios from "axios";
 
 export default class Button extends Component {
     onClick() {
+        console.log(this.props.code)
         axios.post('/run', {
             lang: 'javascript',
-            code: 'function solution(input) { return input; }',
+            code: this.props.code,
             selectedQuiz: 0
         }).then(response => {
             this.props.handleClick(response);
@@ -25,5 +26,6 @@ export default class Button extends Component {
 }
 
 Button.defaultProps = {
+    code: 'function solution(input) { \r\treturn; \r}',
     type: 'Run'
 };
