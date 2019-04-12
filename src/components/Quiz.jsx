@@ -5,11 +5,11 @@ class Quiz extends Component {
     constructor(props) {
         super(props);
 
-        this.itemChange = this.itemChange.bind(this);
+        this.changeItem = this.changeItem.bind(this);
     }
 
-    itemChange = (event) => {
-        this.props.callbackItemChange(event);
+    changeItem = (event) => {
+        this.props.callbackChangeItem(event);
     };
     
     componentDidUpdate() {}
@@ -21,7 +21,7 @@ class Quiz extends Component {
         };
         return (
             <div className = "container guide">
-                <select onChange={ this.itemChange } >
+                <select onChange={ this.changeItem } >
                 {this.props.titleList.map(title => (
                     <option key={title} value={title}>{title}</option>
                 ))}

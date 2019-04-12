@@ -6,7 +6,10 @@ import TestCase from '../components/TestCase';
 import Button from '../components/Button';
 import QuizData from '../../Quiz.json';
 
-export default class Container extends Component {
+import { connect } from 'react-redux';
+import * as actions from '../actions';
+
+class Container extends Component {
     constructor(props) {
         super(props);
 
@@ -18,7 +21,7 @@ export default class Container extends Component {
         };
 
         this.handleChange = this.handleChange.bind(this);
-        this.itemChange = this.itemChange.bind(this);
+        this.changeItem = this.changeItem.bind(this);
         this.setQuizList = this.setQuizList.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.handleCodeMirrorChange = this.handleCodeMirrorChange.bind(this);
@@ -46,7 +49,7 @@ export default class Container extends Component {
         })
     }
 
-    itemChange = (dataFromChild) => {
+    changeItem = (dataFromChild) => {
         const selectedKey = dataFromChild.target.selectedIndex;
         this.setState({
             selectedKey: selectedKey,
@@ -75,7 +78,7 @@ export default class Container extends Component {
                 <Quiz 
                     titleList = { this.state.titleList }
                     selectedQuiz = { this.state.quizList[this.state.selectedKey] }
-                    callbackItemChange = { this.itemChange } />
+                    callbackChangeItem = { this.changeItem } />
             </div>
             <div className = "run-section">
                 <Compiler handleCodeMirrorChange = { this.handleCodeMirrorChange}/>
@@ -91,3 +94,20 @@ export default class Container extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        selectedKey: 0,
+        code: '',
+        result: '',
+        quiz: state.container.quiz
+    };
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        changeItem: () => dispatch(actions.changeItem())
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Container);
