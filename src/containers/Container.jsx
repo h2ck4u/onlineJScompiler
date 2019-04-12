@@ -78,7 +78,7 @@ class Container extends Component {
                 <Quiz 
                     titleList = { this.state.titleList }
                     selectedQuiz = { this.state.quizList[this.state.selectedKey] }
-                    callbackChangeItem = { this.changeItem } />
+                    callbackChangeItem = { this.props.store.getState().container. } />
             </div>
             <div className = "run-section">
                 <Compiler handleCodeMirrorChange = { this.handleCodeMirrorChange}/>
