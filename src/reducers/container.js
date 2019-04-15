@@ -4,21 +4,24 @@ const initialState = {
     selectedKey: 0,
     code: '',
     result: '',
-    quiz: {}
+    quiz: {},
+    titleList: [],
+    quizList: []
 };
 
+/**
+ * 
+ quiz: {
+    title: state.titleList[selectedKey],
+    quiz: state.quizList[selectedKey]
+ }
+ */
 export default function container (state = initialState, action) {
     console.log(state);
     switch(action.type) {
         case types.CHANGE_ITME:
-            const selectedKey = action.data.selectedIndex;
-            console.log('reducers_container', action.data.target);
             return { ...state, 
-                selectedKey: selectedKey,
-                quiz: {
-                    title: this.state.titleList[selectedKey],
-                    quiz: this.state.quizList[selectedKey]
-                }
+                selectedKey: state.selectedKey
             };
         case types.SET_QUIZLIST:
             return {};

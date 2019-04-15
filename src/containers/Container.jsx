@@ -97,16 +97,21 @@ class Container extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        selectedKey: 0,
+        selectedKey: state.container.selectedKey,
         code: '',
         result: '',
-        quiz: state.container.quiz
+        quiz: state.container.quiz,
+        titleList: state.container.titleList,
+        quizList: state.container.quizList
+
     };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        changeItem: (data) => dispatch(actions.changeItem(data))
+        changeItem: (data) => {
+            dispatch(actions.changeItem(data))
+        }
     };
 }
 
