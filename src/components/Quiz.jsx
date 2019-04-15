@@ -9,6 +9,7 @@ class Quiz extends Component {
     }
 
     changeItem = (event) => {
+        console.log('Quiz!!!',event);
         this.props.callbackChangeItem(event);
     };
     

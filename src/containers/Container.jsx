@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Quiz from '../components/Quiz';
 import Result from '../components/Result';
 import Compiler from '../components/Compiler';
-import TestCase from '../components/TestCase';
 import Button from '../components/Button';
 import QuizData from '../../Quiz.json';
 
@@ -78,7 +77,7 @@ class Container extends Component {
                 <Quiz 
                     titleList = { this.state.titleList }
                     selectedQuiz = { this.state.quizList[this.state.selectedKey] }
-                    callbackChangeItem = { this.props.store.getState().container. } />
+                    callbackChangeItem = { this.props.changeItem } />
             </div>
             <div className = "run-section">
                 <Compiler handleCodeMirrorChange = { this.handleCodeMirrorChange}/>
@@ -110,4 +109,5 @@ const mapDispatchToProps = (dispatch) => {
     };
 }
 
+// export default Container;
 export default connect(mapStateToProps, mapDispatchToProps)(Container);

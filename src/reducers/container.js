@@ -10,6 +10,7 @@ const initialState = {
 export default function container (state = initialState, action) {
     switch(action.type) {
         case types.CHANGE_ITME:
+            console.log('reducers_container', action, state);
             return { ...state, quiz: state.quiz};
         case types.SET_QUIZLIST:
             return {};
