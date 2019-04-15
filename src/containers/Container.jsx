@@ -67,6 +67,7 @@ class Container extends Component {
     }
 
     componentWillMount() {
+        console.log('componentWillMout11')
         this.setQuizList();
     }
 
@@ -105,7 +106,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        changeItem: () => dispatch(actions.changeItem())
+        changeItem: (data) => dispatch(actions.changeItem(data))
     };
 }
 
