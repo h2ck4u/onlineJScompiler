@@ -9,11 +9,11 @@ class Quiz extends Component {
     }
 
     changeItem = (event) => {
-        this.props.callbackChangeItem(event);
+        this.props.callbackChangeItem(event.target);
     };
     
     shouldComponentUpdate(nextProps, nextState) {
-        console.log('shouldComponentUpdate');
+        console.log('shouldComponentUpdate', nextProps);
         // 수정 상태가 아니고, info 값이 같다면 리렌더링 안함
         if (this.props.selectedQuiz == nextProps.selectedQuiz) {
           return false;
@@ -23,7 +23,7 @@ class Quiz extends Component {
     }
     
     render() {
-        console.log('Render Quiz!!');
+        // console.log('Render Quiz!!');
         const style = {
             width: '100%',
             height: '100%'

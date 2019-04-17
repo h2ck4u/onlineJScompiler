@@ -1,9 +1,9 @@
 import * as types from './ActionTypes';
 
-export function changeItem(data) {
+export function changeItem(target) {
     return {
         type: types.CHANGE_ITME,
-        data: data
+        selectedIndex: target.selectedIndex
     };
 }
 

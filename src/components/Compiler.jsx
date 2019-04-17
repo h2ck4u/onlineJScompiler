@@ -15,7 +15,7 @@ export default class Compiler extends Component {
     }
 
     render() {
-        console.log('Render Compiler!!');
+        // console.log('Render Compiler!!');
         let options = {
             mode: 'javascript',
             theme: 'darcula',

@@ -12,36 +12,22 @@ class Container extends Component {
     constructor(props) {
         super(props);
 
-        // this.state = {
-        //     selectedKey: 0,
-        //     code: '',
-        //     result: '',
-        //     quiz: {
-        //         title: QuizData[0].title,
-        //         quiz: QuizData[0].quiz
-        //     }
-        // };
-
         this.handleChange = this.handleChange.bind(this);
-        this.changeItem = this.changeItem.bind(this);
-        this.setQuizList = this.setQuizList.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.handleCodeMirrorChange = this.handleCodeMirrorChange.bind(this);
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        console.log('shouldComponentUpdate', this.state, this.props);
-        // 수정 상태가 아니고, info 값이 같다면 리렌더링 안함
-        if (this.state.selectedKey == nextState.selectedKey) {
-          return false;
+        if (this.props.selectedIndex == nextProps.selectedIndex) {
+            console.log('Contaeinr: Do Not Render!')
+            return false;
         }
-        // 나머지 경우엔 리렌더링함
+
         return true;
     }
 
     componentWillMount() {
         console.log('componentWillMout11')
-        this.setQuizList();
     }
 
     handleClick(e) {
@@ -66,43 +52,25 @@ class Container extends Component {
         })
     }
 
-    changeItem = (dataFromChild) => {
-        const selectedKey = dataFromChild.target.selectedIndex;
-        this.setState({
-            selectedKey: selectedKey,
-            quiz: {
-                title: this.state.titleList[selectedKey],
-                quiz: this.state.quizList[selectedKey]
-            }
-        });
-    }
-
-    setQuizList = () => {
-        this.setState({
-            titleList: QuizData.map(quiz => quiz.title),
-            quizList: QuizData.map(quiz => quiz.quiz)
-        });
-    }
-
     render() {
         console.log('Render Container!!', this.props);
         return (
         <div className = "main-section">
             <div>
                 <Quiz 
-                    titleList = { this.state.titleList }
-                    selectedQuiz = { this.state.quizList[this.state.selectedKey] }
+                    titleList = { this.props.titleList }
+                    selectedQuiz = { this.props.quizList[this.props.selectedIndex] }
                     callbackChangeItem = { this.props.changeItem } />
             </div>
             <div className = "run-section">
                 <Compiler handleCodeMirrorChange = { this.handleCodeMirrorChange}/>
-                <Result result = { this.state.result }/>
+                <Result result = { this.props.result }/>
             </div>
             <div>
                 {/* <TestCase/> */}
                 <Button
                     handleClick = { this.handleClick } 
-                    code = { this.state.code } />
+                    code = { this.props.code } />
             </div>
         </div>
         );
@@ -111,9 +79,9 @@ class Container extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        selectedKey: state.container.selectedKey,
-        code: '',
-        result: '',
+        selectedIndex: state.container.selectedIndex,
+        code: state.container.code,
+        result: state.container.result,
         quiz: state.container.quiz,
         titleList: state.container.titleList,
         quizList: state.container.quizList
@@ -122,11 +90,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        changeItem: (data) => {
-            dispatch(actions.changeItem(data))
+        changeItem: (target) => {
+            dispatch(actions.changeItem(target))
         }
     };
 }
 
-// export default Container;
 export default connect(mapStateToProps, mapDispatchToProps)(Container);
