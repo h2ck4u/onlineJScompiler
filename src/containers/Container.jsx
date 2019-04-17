@@ -12,12 +12,15 @@ class Container extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            selectedKey: 0,
-            code: '',
-            result: '',
-            quiz: {}
-        };
+        // this.state = {
+        //     selectedKey: 0,
+        //     code: '',
+        //     result: '',
+        //     quiz: {
+        //         title: QuizData[0].title,
+        //         quiz: QuizData[0].quiz
+        //     }
+        // };
 
         this.handleChange = this.handleChange.bind(this);
         this.changeItem = this.changeItem.bind(this);
@@ -27,7 +30,7 @@ class Container extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        console.log('shouldComponentUpdate');
+        console.log('shouldComponentUpdate', this.state, this.props);
         // 수정 상태가 아니고, info 값이 같다면 리렌더링 안함
         if (this.state.selectedKey == nextState.selectedKey) {
           return false;
@@ -82,6 +85,7 @@ class Container extends Component {
     }
 
     render() {
+        console.log('Render Container!!', this.props);
         return (
         <div className = "main-section">
             <div>
@@ -113,7 +117,6 @@ const mapStateToProps = (state) => {
         quiz: state.container.quiz,
         titleList: state.container.titleList,
         quizList: state.container.quizList
-
     };
 }
 

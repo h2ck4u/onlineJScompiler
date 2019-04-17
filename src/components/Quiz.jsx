@@ -23,6 +23,7 @@ class Quiz extends Component {
     }
     
     render() {
+        console.log('Render Quiz!!');
         const style = {
             width: '100%',
             height: '100%'

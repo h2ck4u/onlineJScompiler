@@ -1,13 +1,16 @@
 import * as types from '../actions/ActionTypes';
+import QuizData from '../../Quiz.json';
 
 const initialState = {
     selectedKey: 0,
     code: '',
     result: '',
-    quiz: {},
-    titleList: [],
-    quizList: []
+    quiz: {
+        title: QuizData[0].title,
+        quiz: QuizData[0].quiz
+    }
 };
+
 
 /**
  * 
@@ -17,11 +20,10 @@ const initialState = {
  }
  */
 export default function container (state = initialState, action) {
-    console.log(state);
     switch(action.type) {
         case types.CHANGE_ITME:
             return { ...state, 
-                selectedKey: state.selectedKey
+                selectedKey: state.selectedKey + 1
             };
         case types.SET_QUIZLIST:
             return {};
