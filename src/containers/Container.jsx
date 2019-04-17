@@ -26,6 +26,21 @@ class Container extends Component {
         this.handleCodeMirrorChange = this.handleCodeMirrorChange.bind(this);
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log('shouldComponentUpdate');
+        // 수정 상태가 아니고, info 값이 같다면 리렌더링 안함
+        if (this.state.selectedKey == nextState.selectedKey) {
+          return false;
+        }
+        // 나머지 경우엔 리렌더링함
+        return true;
+    }
+
+    componentWillMount() {
+        console.log('componentWillMout11')
+        this.setQuizList();
+    }
+
     handleClick(e) {
         let resultMsg = '정답이 아닙니다.'
         if (e.data.result) {
@@ -64,11 +79,6 @@ class Container extends Component {
             titleList: QuizData.map(quiz => quiz.title),
             quizList: QuizData.map(quiz => quiz.quiz)
         });
-    }
-
-    componentWillMount() {
-        console.log('componentWillMout11')
-        this.setQuizList();
     }
 
     render() {

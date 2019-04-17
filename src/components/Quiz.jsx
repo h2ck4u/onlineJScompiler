@@ -12,7 +12,15 @@ class Quiz extends Component {
         this.props.callbackChangeItem(event);
     };
     
-    componentDidUpdate() {}
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log('shouldComponentUpdate');
+        // 수정 상태가 아니고, info 값이 같다면 리렌더링 안함
+        if (this.props.selectedQuiz == nextProps.selectedQuiz) {
+          return false;
+        }
+        // 나머지 경우엔 리렌더링함
+        return true;
+    }
     
     render() {
         const style = {
