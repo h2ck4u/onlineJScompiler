@@ -26,9 +26,16 @@ const controller = {
         var jsonContent = fs.readFileSync("Quiz.json");
         var quizList = JSON.parse(jsonContent);
         var expected = quizList[body.selectedQuiz].result;
-        execute(`${executeInfo[body.lang].command} 233168`).then( output => {
-            res.json({result: expected == parseInt(output)});
-        });
+        var result = execute(`${executeInfo[body.lang].command} 233168`);
+        console.log(result);
+        setTimeout(function() {
+            console.log(result);
+            res.json({result: expected == parseInt(result)});
+        }, 1000);
+        // .then( output => {
+        //     console.log(output);
+            
+        // });
     },
 
     getAllQuiz: (req, res) => {

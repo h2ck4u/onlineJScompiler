@@ -3,7 +3,6 @@ import Quiz from '../components/Quiz';
 import Result from '../components/Result';
 import Compiler from '../components/Compiler';
 import Button from '../components/Button';
-import QuizData from '../../Quiz.json';
 
 import { connect } from 'react-redux';
 import * as actions from '../actions';
@@ -17,18 +16,17 @@ class Container extends Component {
         this.handleCodeMirrorChange = this.handleCodeMirrorChange.bind(this);
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        if (this.props.selectedIndex == nextProps.selectedIndex) {
-            console.log('Contaeinr: Do Not Render!')
-            return false;
-        }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     if ((this.props.selectedIndex == nextProps.selectedIndex) &&
+    //         (this.props.code == nextProps.code)) {
+    //         console.log('Contaeinr: Do Not Update!');
+    //         return false;
+    //     }
+    //     console.log('Contaeinr: Should Update!');
+    //     return true;
+    // }
 
-        return true;
-    }
-
-    componentWillMount() {
-        console.log('componentWillMout11')
-    }
+    componentWillMount() {}
 
     handleClick(e) {
         let resultMsg = '정답이 아닙니다.'
@@ -57,17 +55,13 @@ class Container extends Component {
         return (
         <div className = "main-section">
             <div>
-                <Quiz 
-                    titleList = { this.props.titleList }
-                    selectedQuiz = { this.props.quizList[this.props.selectedIndex] }
-                    callbackChangeItem = { this.props.changeItem } />
+                <Quiz/>
             </div>
             <div className = "run-section">
-                <Compiler handleCodeMirrorChange = { this.handleCodeMirrorChange}/>
+                <Compiler handleCodeMirrorChange = { this.props.runCode}/>
                 <Result result = { this.props.result }/>
             </div>
             <div>
-                {/* <TestCase/> */}
                 <Button
                     handleClick = { this.handleClick } 
                     code = { this.props.code } />
@@ -79,19 +73,15 @@ class Container extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        selectedIndex: state.container.selectedIndex,
         code: state.container.code,
-        result: state.container.result,
-        quiz: state.container.quiz,
-        titleList: state.container.titleList,
-        quizList: state.container.quizList
+        result: state.container.result
     };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        changeItem: (target) => {
-            dispatch(actions.changeItem(target))
+        runCode: (code) => {
+            dispatch(actions.runCode(code))
         }
     };
 }

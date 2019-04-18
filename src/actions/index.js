@@ -12,3 +12,10 @@ export function setQuizList() {
         type: types.SET_QUIZLIST
     };
 }
+
+export function runCode(code) {
+    return {
+        type: types.RUN_CODE,
+        code: code
+    };
+}

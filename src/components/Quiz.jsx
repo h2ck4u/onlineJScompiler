@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 import '../css/App.css'
 
 class Quiz extends Component {
@@ -9,21 +11,18 @@ class Quiz extends Component {
     }
 
     changeItem = (event) => {
-        this.props.callbackChangeItem(event.target);
+        this.props.handleChangeItem(event.target);
     };
     
-    shouldComponentUpdate(nextProps, nextState) {
-        console.log('shouldComponentUpdate', nextProps);
-        // 수정 상태가 아니고, info 값이 같다면 리렌더링 안함
-        if (this.props.selectedQuiz == nextProps.selectedQuiz) {
-          return false;
-        }
-        // 나머지 경우엔 리렌더링함
-        return true;
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     if (this.props.selectedQuiz == nextProps.selectedQuiz) {
+    //       return false;
+    //     }
+    //     return true;
+    // }
     
     render() {
-        // console.log('Render Quiz!!');
+        console.log('Render Quiz!!', this.props);
         const style = {
             width: '100%',
             height: '100%'
@@ -40,5 +39,19 @@ class Quiz extends Component {
         );
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        titleList: state.quiz.titleList,
+        selectedQuiz: state.quiz.selectedQuiz
+    };
+}
 
-export default Quiz;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        handleChangeItem: (target) => {
+            dispatch(actions.changeItem(target))
+        }
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Quiz);
