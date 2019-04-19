@@ -3,13 +3,18 @@ import axios from "axios";
 
 export default class Button extends Component {
     onClick() {
-        console.log(this.props.code)
+        const headers = {
+            'Content-Type': 'application/json',
+        };
         axios.post('/run', {
             lang: 'javascript',
             code: this.props.code,
             selectedQuiz: 0
-        }).then(response => {
+        }, headers).then(response => {
+            console.log(response);
             this.props.handleClick(response);
+        }).catch(error => {
+            console.log(error);
         });
     }
 
@@ -19,6 +24,7 @@ export default class Button extends Component {
     }
 
     render() {
+        // console.log('Render Button!!');
         return (
             <button onClick = { this.onClick }> {this.props.type} </button>
         );

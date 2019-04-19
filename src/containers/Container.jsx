@@ -2,27 +2,31 @@ import React, {Component} from 'react';
 import Quiz from '../components/Quiz';
 import Result from '../components/Result';
 import Compiler from '../components/Compiler';
-import TestCase from '../components/TestCase';
 import Button from '../components/Button';
-import QuizData from '../../Quiz.json';
 
-export default class Container extends Component {
+import { connect } from 'react-redux';
+import * as actions from '../actions';
+
+class Container extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            selectedKey: 0,
-            code: '',
-            result: '',
-            quiz: {}
-        };
-
         this.handleChange = this.handleChange.bind(this);
-        this.itemChange = this.itemChange.bind(this);
-        this.setQuizList = this.setQuizList.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.handleCodeMirrorChange = this.handleCodeMirrorChange.bind(this);
     }
+
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     if ((this.props.selectedIndex == nextProps.selectedIndex) &&
+    //         (this.props.code == nextProps.code)) {
+    //         console.log('Contaeinr: Do Not Update!');
+    //         return false;
+    //     }
+    //     console.log('Contaeinr: Should Update!');
+    //     return true;
+    // }
+
+    componentWillMount() {}
 
     handleClick(e) {
         let resultMsg = '정답이 아닙니다.'
@@ -46,48 +50,40 @@ export default class Container extends Component {
         })
     }
 
-    itemChange = (dataFromChild) => {
-        const selectedKey = dataFromChild.target.selectedIndex;
-        this.setState({
-            selectedKey: selectedKey,
-            quiz: {
-                title: this.state.titleList[selectedKey],
-                quiz: this.state.quizList[selectedKey]
-            }
-        });
-    }
-
-    setQuizList = () => {
-        this.setState({
-            titleList: QuizData.map(quiz => quiz.title),
-            quizList: QuizData.map(quiz => quiz.quiz)
-        });
-    }
-
-    componentWillMount() {
-        this.setQuizList();
-    }
-
     render() {
+        console.log('Render Container!!', this.props);
         return (
         <div className = "main-section">
             <div>
-                <Quiz 
-                    titleList = { this.state.titleList }
-                    selectedQuiz = { this.state.quizList[this.state.selectedKey] }
-                    callbackItemChange = { this.itemChange } />
+                <Quiz/>
             </div>
             <div className = "run-section">
-                <Compiler handleCodeMirrorChange = { this.handleCodeMirrorChange}/>
-                <Result result = { this.state.result }/>
+                <Compiler handleCodeMirrorChange = { this.props.runCode}/>
+                <Result result = { this.props.result }/>
             </div>
             <div>
-                {/* <TestCase/> */}
                 <Button
                     handleClick = { this.handleClick } 
-                    code = { this.state.code } />
+                    code = { this.props.code } />
             </div>
         </div>
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        code: state.container.code,
+        result: state.container.result
+    };
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        runCode: (code) => {
+            dispatch(actions.runCode(code))
+        }
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Container);

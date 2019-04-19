@@ -7,6 +7,7 @@ export default class Result extends Component {
     }
 
     render() {
+        // console.log('Render Reulst!!');
         return (
             <div className = "output-section">
                 <div className = "tab-header">
