@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 import '../css/App.css'
 
-export default class Result extends Component {
+class Result extends Component {
     constructor(props) {
         super(props);
     }
@@ -22,6 +24,23 @@ export default class Result extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    console.log(state)
+    return {
+        result: state.result.result
+    };
+}
+
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         handleChangeItem: (target) => {
+//             dispatch(actions.changeItem(target))
+//         }
+//     };
+// }
+
+export default connect(mapStateToProps)(Result);
 
 Result.defaultProps = {
     result: ''

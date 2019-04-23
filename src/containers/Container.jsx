@@ -10,9 +10,6 @@ import * as actions from '../actions';
 class Container extends Component {
     constructor(props) {
         super(props);
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleClick = this.handleClick.bind(this);
         this.handleCodeMirrorChange = this.handleCodeMirrorChange.bind(this);
     }
 
@@ -28,22 +25,6 @@ class Container extends Component {
 
     componentWillMount() {}
 
-    handleClick(e) {
-        let resultMsg = '정답이 아닙니다.'
-        if (e.data.result) {
-            resultMsg = '정답입니다.'
-        }
-        this.setState({
-            result: resultMsg
-        });
-    }
-
-    handleChange(e) {
-        this.setState({
-            keyword: e.target.value
-        });
-    }
-
     handleCodeMirrorChange(value) {
         this.setState({
             code: value
@@ -52,19 +33,20 @@ class Container extends Component {
 
     render() {
         console.log('Render Container!!', this.props);
+        //handleCodeMirrorChange = { this.props.runCode}
         return (
         <div className = "main-section">
             <div>
                 <Quiz/>
             </div>
             <div className = "run-section">
-                <Compiler handleCodeMirrorChange = { this.props.runCode}/>
+                <Compiler /> 
                 <Result result = { this.props.result }/>
             </div>
             <div>
                 <Button
-                    handleClick = { this.handleClick } 
-                    code = { this.props.code } />
+                    code = { this.props.code } 
+                    runCode = { this.props.runcode }/>
             </div>
         </div>
         );
@@ -74,7 +56,7 @@ class Container extends Component {
 const mapStateToProps = (state) => {
     return {
         code: state.container.code,
-        result: state.container.result
+        result: state.result.result
     };
 }
 

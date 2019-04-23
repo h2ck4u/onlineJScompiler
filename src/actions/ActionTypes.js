@@ -1,2 +1,3 @@
 export const CHANGE_ITME = 'CHANGE_ITME';
 export const RUN_CODE = 'RUN_CODE';
+export const HANDLE_CLICK_RESULT = 'HANDLE_CLICK_RESULT';

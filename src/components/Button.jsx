@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import axios from "axios";
 
-export default class Button extends Component {
+import * as actions from '../actions';
+import { connect } from 'react-redux';
+
+class Button extends Component {
     onClick() {
         const headers = {
             'Content-Type': 'application/json',
@@ -30,6 +33,23 @@ export default class Button extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    console.log(state)
+    return {
+        result: state.result.result
+    };
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        runCode: (code) => {
+            dispatch(actions.runCode(code))
+        }
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Button);
 
 Button.defaultProps = {
     code: 'function solution(input) { \r\treturn; \r}',
