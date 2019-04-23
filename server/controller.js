@@ -7,6 +7,7 @@ const controller = {
 
     run: (req, res) => {
         var body = req.body;
+        console.log(body);
         var executeInfo = {
             javascript: {
                 fileName: 'test.js',
@@ -14,11 +15,6 @@ const controller = {
                 code: `var input = parseInt(process.argv[2]);
                 ${body.code}
                 console.log(solution(input));`
-            },
-            python: {
-                fileName: 'test.py',
-                command: 'python test.py',
-                code: `${body.code}`
             }
         };
         writeFile(executeInfo[body.lang].fileName, executeInfo[body.lang].code);
@@ -26,15 +22,15 @@ const controller = {
         var jsonContent = fs.readFileSync("Quiz.json");
         var quizList = JSON.parse(jsonContent);
         var expected = quizList[body.selectedQuiz].result;
-        var result = 233168; //execute(`${executeInfo[body.lang].command} 233168`);
-        // console.log(result);
-        // setTimeout(function() {
-        //     console.log(result);
+        var result = execute(`${executeInfo[body.lang].command} 233168`);
+        console.log(result);
+        setTimeout(function() {
+            console.log(result);
             res.json({result: expected == parseInt(result)});
-        // }, 1000);
+        }, 1000);
         // .then( output => {
-        //     console.log(output);
-            
+            // console.log(output);
+            // 
         // });
     },
 

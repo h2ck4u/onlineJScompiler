@@ -5,37 +5,24 @@ import * as actions from '../actions';
 import { connect } from 'react-redux';
 
 class Button extends Component {
-    onClick() {
-        const headers = {
-            'Content-Type': 'application/json',
-        };
-        axios.post('/run', {
-            lang: 'javascript',
-            code: this.props.code,
-            selectedQuiz: 0
-        }, headers).then(response => {
-            console.log(response);
-            this.props.handleClick(response);
-        }).catch(error => {
-            console.log(error);
-        });
-    }
-
     constructor(props) {
         super(props);
-        this.onClick = this.onClick.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
 
+    handleClick() {
+        console.log('handleClick!!');
+        this.props.handleClickResult('function solution(input) { \r\treturn; \r}');
+    }
     render() {
         // console.log('Render Button!!');
         return (
-            <button onClick = { this.onClick }> {this.props.type} </button>
+            <button onClick = { this.handleClick }> {this.props.type} </button>
         );
     }
 }
 
 const mapStateToProps = (state) => {
-    console.log(state)
     return {
         result: state.result.result
     };
@@ -43,8 +30,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        runCode: (code) => {
-            dispatch(actions.runCode(code))
+        handleClickResult: (code) => {
+            dispatch(actions.handleClickResult(code))
         }
     };
 }

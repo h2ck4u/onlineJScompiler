@@ -8,23 +8,10 @@ export function changeItem(target) {
     };
 }
 
-export function setQuizList() {
-    return {
-        type: types.SET_QUIZLIST
-    };
-}
-
-export function runCode(code) {
-    return {
-        type: types.RUN_CODE,
-        code: code
-    };
-}
-
 export function handleClickResult(result) {
     console.log('setResult!!');
     return {
-        type: types.SET_RESULT,
+        type: types.HANDLE_CLICK_RESULT,
         result: result,
         payload: axios.post('/run', {
             lang: 'javascript',

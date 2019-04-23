@@ -13,16 +13,6 @@ class Container extends Component {
         this.handleCodeMirrorChange = this.handleCodeMirrorChange.bind(this);
     }
 
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     if ((this.props.selectedIndex == nextProps.selectedIndex) &&
-    //         (this.props.code == nextProps.code)) {
-    //         console.log('Contaeinr: Do Not Update!');
-    //         return false;
-    //     }
-    //     console.log('Contaeinr: Should Update!');
-    //     return true;
-    // }
-
     componentWillMount() {}
 
     handleCodeMirrorChange(value) {
@@ -33,7 +23,6 @@ class Container extends Component {
 
     render() {
         console.log('Render Container!!', this.props);
-        //handleCodeMirrorChange = { this.props.runCode}
         return (
         <div className = "main-section">
             <div>
@@ -45,8 +34,7 @@ class Container extends Component {
             </div>
             <div>
                 <Button
-                    code = { this.props.code } 
-                    runCode = { this.props.runcode }/>
+                    code = { this.props.code }/>
             </div>
         </div>
         );
@@ -60,12 +48,4 @@ const mapStateToProps = (state) => {
     };
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        runCode: (code) => {
-            dispatch(actions.runCode(code))
-        }
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Container);
+export default connect(mapStateToProps)(Container);

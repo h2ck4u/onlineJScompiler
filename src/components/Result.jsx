@@ -26,7 +26,6 @@ class Result extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state)
     return {
         result: state.result.result
     };

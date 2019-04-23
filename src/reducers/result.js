@@ -6,9 +6,9 @@ const initialState = {
 
 export default function quiz (state = initialState, action) {
     switch(action.type) {
-        case types.SET_RESULT:
-            console.log('reducer!!');
-            return { ...state, result: action.result };
+        case types.HANDLE_CLICK_RESULT:
+            console.log('reducer!!', action);
+            return { ...state, result: true };
         default:
             return state;
     }
