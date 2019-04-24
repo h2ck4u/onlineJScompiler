@@ -9,7 +9,6 @@ export function changeItem(target) {
 }
 
 export function handleClickResult(code) {
-    console.log(code);
     return {
         type: types.HANDLE_CLICK_RESULT,
         payload: axios.post('/run', {
