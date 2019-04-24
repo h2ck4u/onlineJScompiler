@@ -15,11 +15,11 @@ export function handleClickResult(code) {
             lang: 'javascript',
             code: code,
             selectedQuiz: 0
-        },).then(response => {
-            console.log(response);
+        }).then(response => {
+            console.log(response.data.result);
         }).catch(error => {
             console.log(error);
-        })
+        }),
     };
 }
 

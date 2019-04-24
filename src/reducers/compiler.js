@@ -1,7 +1,9 @@
 import * as types from '../actions/ActionTypes';
 
 const initialState = {
-    code: 'function solution(input) { \r\treturn; \r}'
+    code: `function solution(input) {
+    return;
+  }`
 };
 
 export default function compiler (state = initialState, action) {

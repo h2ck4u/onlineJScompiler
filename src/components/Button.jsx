@@ -14,7 +14,6 @@ class Button extends Component {
         this.props.handleClickResult(this.props.code);
     }
     render() {
-        // console.log('Render Button!!');
         return (
             <button onClick = { this.handleClick }> {this.props.type} </button>
         );
@@ -23,7 +22,6 @@ class Button extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        result: state.result.result,
         code: state.compiler.code
     };
 }
