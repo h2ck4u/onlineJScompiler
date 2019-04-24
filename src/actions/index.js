@@ -24,3 +24,10 @@ export function handleClickResult(result) {
         })
     };
 }
+
+export function handleCodeMirrorChange(value) {
+    return {
+        type: types.HANDLE_CODEMIRROR_CHANGE,
+        code: value
+    };
+}

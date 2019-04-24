@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import container from './container';
 import quiz from './quiz';
 import result from './result';
+import compiler from './compiler';
 
 const reducers = combineReducers({
-    container, quiz, result
+    quiz, result, compiler
 });
 
 export default reducers;
