@@ -12,9 +12,7 @@ const controller = {
                 fileName: 'test.js',
                 command: `node test.js`,
                 code: `var input = parseInt(process.argv[2]);
-                function solution(input) { 
-                    return input; 
-                }
+                ${body.code}
                 console.log(solution(input));`
             }
         };

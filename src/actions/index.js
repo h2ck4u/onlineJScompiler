@@ -8,14 +8,13 @@ export function changeItem(target) {
     };
 }
 
-export function handleClickResult(result) {
-    console.log('setResult!!');
+export function handleClickResult(code) {
+    console.log(code);
     return {
         type: types.HANDLE_CLICK_RESULT,
-        result: result,
         payload: axios.post('/run', {
             lang: 'javascript',
-            code: '',
+            code: code,
             selectedQuiz: 0
         },).then(response => {
             console.log(response);

@@ -11,8 +11,7 @@ class Button extends Component {
     }
 
     handleClick() {
-        console.log('handleClick!!');
-        this.props.handleClickResult('function solution(input) { \r\treturn; \r}');
+        this.props.handleClickResult(this.props.code);
     }
     render() {
         // console.log('Render Button!!');
@@ -24,7 +23,8 @@ class Button extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        result: state.result.result
+        result: state.result.result,
+        code: state.compiler.code
     };
 }
 
