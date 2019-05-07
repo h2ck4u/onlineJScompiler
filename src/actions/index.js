@@ -1,4 +1,5 @@
 import * as types from './ActionTypes';
+import axios from "axios";
 
 export function changeItem(target) {
     return {
@@ -7,15 +8,24 @@ export function changeItem(target) {
     };
 }
 
-export function setQuizList() {
+export function handleClickResult(code) {
     return {
-        type: types.SET_QUIZLIST
+        type: types.HANDLE_CLICK_RESULT,
+        payload: axios.post('/run', {
+            lang: 'javascript',
+            code: code,
+            selectedQuiz: 0
+        }).then(response => {
+            console.log(response.data.result);
+        }).catch(error => {
+            console.log(error);
+        }),
     };
 }
 
-export function runCode(code) {
+export function handleCodeMirrorChange(value) {
     return {
-        type: types.RUN_CODE,
-        code: code
+        type: types.HANDLE_CODEMIRROR_CHANGE,
+        code: value
     };
 }

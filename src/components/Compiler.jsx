@@ -1,17 +1,20 @@
 import React, {Component} from 'react';
 import {UnControlled as CodeMirror} from 'react-codemirror2'
 import '../css/App.css'
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 require('codemirror/lib/codemirror.css');
 require('codemirror/mode/javascript/javascript.js');
 
-export default class Compiler extends Component {
-    state = {
-        code: 'function solution(input) { \r\treturn; \r}'
-    };
-
+class Compiler extends Component {
     constructor(props) {
         super(props);
+        this.handleCodeMirrorChange = this.handleCodeMirrorChange.bind(this);
+    }
+
+    handleCodeMirrorChange(value) {
+        this.props.handleCodeMirrorChange(value);
     }
 
     render() {
@@ -26,14 +29,27 @@ export default class Compiler extends Component {
             <div className = "code-section">
                 <div className = "container run">
                     <CodeMirror
-                        value = { this.state.code }
+                        value = { this.props.code }
                         options = { options }
-                        onChange = { (editor, data, value) => {
-                            this.props.handleCodeMirrorChange(value);
-                        }}
+                        onChange = { this.handleCodeMirrorChange }
                     />
                 </div>
             </div>
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        code: state.compiler.code
+    };
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        handleCodeMirrorChange: (target) => {
+            dispatch(actions.handleCodeMirrorChange(target))
+        }
+    };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Compiler);

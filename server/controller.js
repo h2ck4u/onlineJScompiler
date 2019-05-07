@@ -14,11 +14,6 @@ const controller = {
                 code: `var input = parseInt(process.argv[2]);
                 ${body.code}
                 console.log(solution(input));`
-            },
-            python: {
-                fileName: 'test.py',
-                command: 'python test.py',
-                code: `${body.code}`
             }
         };
         writeFile(executeInfo[body.lang].fileName, executeInfo[body.lang].code);
@@ -26,16 +21,12 @@ const controller = {
         var jsonContent = fs.readFileSync("Quiz.json");
         var quizList = JSON.parse(jsonContent);
         var expected = quizList[body.selectedQuiz].result;
-        var result = execute(`${executeInfo[body.lang].command} 233168`);
-        console.log(result);
-        setTimeout(function() {
-            console.log(result);
+        execute(`${executeInfo[body.lang].command} 233168`).then((result) => {
+            console.log('result:', result);
             res.json({result: expected == parseInt(result)});
-        }, 1000);
-        // .then( output => {
-        //     console.log(output);
-            
-        // });
+        }).catch((err) => {
+            console.log('err:', err);
+        });
     },
 
     getAllQuiz: (req, res) => {
@@ -81,7 +72,7 @@ function execute(command) {
     return new Promise(function(resolve, reject) {
         var exec = require('child_process').exec;
         var option = {
-            timeout: 200,
+            timeout: 2000,
             maxBuffer: 1024
         }
         exec(command, option, function(error, stdout, stderr) {

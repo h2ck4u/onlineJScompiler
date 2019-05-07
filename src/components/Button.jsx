@@ -1,35 +1,40 @@
 import React, {Component} from 'react';
 import axios from "axios";
 
-export default class Button extends Component {
-    onClick() {
-        const headers = {
-            'Content-Type': 'application/json',
-        };
-        axios.post('/run', {
-            lang: 'javascript',
-            code: this.props.code,
-            selectedQuiz: 0
-        }, headers).then(response => {
-            console.log(response);
-            this.props.handleClick(response);
-        }).catch(error => {
-            console.log(error);
-        });
-    }
+import * as actions from '../actions';
+import { connect } from 'react-redux';
 
+class Button extends Component {
     constructor(props) {
         super(props);
-        this.onClick = this.onClick.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
 
+    handleClick() {
+        this.props.handleClickResult(this.props.code);
+    }
     render() {
-        // console.log('Render Button!!');
         return (
-            <button onClick = { this.onClick }> {this.props.type} </button>
+            <button onClick = { this.handleClick }> {this.props.type} </button>
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        code: state.compiler.code
+    };
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        handleClickResult: (code) => {
+            dispatch(actions.handleClickResult(code))
+        }
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Button);
 
 Button.defaultProps = {
     code: 'function solution(input) { \r\treturn; \r}',
